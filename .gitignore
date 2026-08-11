@@ -20,6 +20,8 @@
 /storage/pail
 /vendor
 /tmp
+/nuscode
+*.sqlite
 Homestead.json
 Homestead.yaml
 Thumbs.db
