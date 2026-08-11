@@ -22,6 +22,7 @@
 /tmp
 /nuscode
 *.sqlite
+/.git-token
 Homestead.json
 Homestead.yaml
 Thumbs.db
