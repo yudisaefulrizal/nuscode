@@ -354,7 +354,6 @@
 
   <section id="tentang" class="content" data-animate>
     <h2>Tentang NUSCODE</h2>
-    <p><strong>NUSCODE</strong> berasal dari kata "Nusantara Code" yang berarti "Kode dari Nusantara". Kami adalah pengembang teknologi yang lahir dari tanah Nusantara dengan semangat global.</p>
     <p>Setiap baris kode yang kami tulis membawa nilai efisiensi, kesederhanaan, dan kebermanfaatan — mencerminkan keseimbangan antara logika teknologi dan nilai-nilai manusiawi.</p>
     <blockquote><em>"Kode dari Nusantara, untuk dunia."</em></blockquote>
   </section>
@@ -379,7 +378,7 @@
     <div class="narrative">
       <p>
         Kami percaya bahwa teknologi terbaik lahir dari kesederhanaan.
-        Dari Nusantara, kami membangun solusi digital yang cepat, ringan, dan bermakna —
+        kami membangun solusi digital yang cepat, ringan, dan bermakna —
         membantu bisnis, lembaga, dan masyarakat bergerak lebih efisien.
       </p>
     </div>
