@@ -7,11 +7,11 @@
 
     # 1. WWW to NON-WWW
     RewriteCond %{HTTP_HOST} ^www\.nuscode\.id [NC]
-    RewriteRule ^(.*)$ https://nuscode.id/$1 [L,R=301]
+    RewriteRule ^(.*)$ http://nuscode.id/$1 [L,R=301]
 
-    # 2. HTTPS Enforcement
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+    # 2. HTTPS Enforcement (disabled — HTTPS is terminated at Cloudflare)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
     # 3. Laravel default rules
     RewriteCond %{HTTP:Authorization} .
