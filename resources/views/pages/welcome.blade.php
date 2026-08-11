@@ -358,32 +358,6 @@
     <blockquote><em>"Kode dari Nusantara, untuk dunia."</em></blockquote>
   </section>
 
-  <section id="arah" class="content" data-animate>
-    <div class="direction-visual">
-      <picture>
-        <source
-          media="(max-width: 480px)"
-          srcset="{{ asset('images/nuscode-simple-digital-solutions-mobile.png') }}"
-        >
-        <img
-          src="{{ asset('images/nuscode-simple-digital-solutions.png') }}"
-          alt="Ilustrasi teknologi dan AI yang disederhanakan menjadi solusi digital untuk bisnis, pendidikan, dan masyarakat"
-          width="1200"
-          height="724"
-          loading="lazy"
-        >
-      </picture>
-    </div>
-
-    <div class="narrative">
-      <p>
-        Kami percaya bahwa teknologi terbaik lahir dari kesederhanaan.
-        kami membangun solusi digital yang cepat, ringan, dan bermakna —
-        membantu bisnis, lembaga, dan masyarakat bergerak lebih efisien.
-      </p>
-    </div>
-  </section>
-
   <!-- PORTOFOLIO — daftar Jasa Pembuatan Aplikasi (dari database, model Aplikasi) -->
   <section id="portfolio" class="portfolio" data-animate>
     <h2>Portofolio Kami</h2>
@@ -412,6 +386,32 @@
     <p class="text-center" style="margin-top: 2rem;">
       <a href="{{ route('aplikasi.index') }}">Lihat semua & pesan Jasa Pembuatan Aplikasi →</a>
     </p>
+  </section>
+
+  <section id="arah" class="content" data-animate>
+    <div class="direction-visual">
+      <picture>
+        <source
+          media="(max-width: 480px)"
+          srcset="{{ asset('images/nuscode-simple-digital-solutions-mobile.png') }}"
+        >
+        <img
+          src="{{ asset('images/nuscode-simple-digital-solutions.png') }}"
+          alt="Ilustrasi teknologi dan AI yang disederhanakan menjadi solusi digital untuk bisnis, pendidikan, dan masyarakat"
+          width="1200"
+          height="724"
+          loading="lazy"
+        >
+      </picture>
+    </div>
+
+    <div class="narrative">
+      <p>
+        Kami percaya bahwa teknologi terbaik lahir dari kesederhanaan.
+        kami membangun solusi digital yang cepat, ringan, dan bermakna —
+        membantu bisnis, lembaga, dan masyarakat bergerak lebih efisien.
+      </p>
+    </div>
   </section>
 @endsection
 
