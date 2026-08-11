@@ -1,158 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-    
-    <!-- Halaman Utama -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
     <url>
-        <loc>https://nuscode.id/alatpesta</loc>
-        <lastmod>2026-01-16</lastmod>
+        <loc>https://nuscode.id/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        
-        <!-- Images for homepage -->
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/banner1.webp</image:loc>
-            <image:title>alatpesta.id - Sewa Alat Pesta Lengkap</image:title>
-            <image:caption>Jasa sewa alat pesta lengkap untuk wedding, ulang tahun, dan acara lainnya</image:caption>
-        </image:image>
-        
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/banner2.webp</image:loc>
-            <image:title>Rental Tenda Pesta Terpercaya</image:title>
-        </image:image>
     </url>
-    
-    <!-- Halaman Produk (Virtual) -->
+
     <url>
-        <loc>https://nuscode.id/alatpesta/products</loc>
-        <lastmod>2026-01-16</lastmod>
+        <loc>https://nuscode.id/artikel</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://nuscode.id/produk</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
-        
-        <!-- Product Images -->
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/kursi.webp</image:loc>
-            <image:title>Sewa Kursi Pesta - alatpesta.id</image:title>
-            <image:caption>Kursi pesta berbagai jenis untuk acara wedding dan ulang tahun</image:caption>
-        </image:image>
-        
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/tenda.webp</image:loc>
-            <image:title>Sewa Tenda Pesta - alatpesta.id</image:title>
-            <image:caption>Tenda berbagai ukuran untuk acara outdoor dan pernikahan</image:caption>
-        </image:image>
-        
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/soundsystem.webp</image:loc>
-            <image:title>Sewa Sound System - alatpesta.id</image:title>
-            <image:caption>Sound system profesional untuk pesta dan acara besar</image:caption>
-        </image:image>
-        
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/meja.webp</image:loc>
-            <image:title>Sewa Meja Pesta - alatpesta.id</image:title>
-            <image:caption>Meja pesta berbagai ukuran untuk resepsi dan acara</image:caption>
-        </image:image>
-        
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/pelaminan.webp</image:loc>
-            <image:title>Sewa Pelaminan - alatpesta.id</image:title>
-            <image:caption>Pelaminan lengkap untuk pernikahan yang elegan</image:caption>
-        </image:image>
     </url>
-    
-    <!-- Halaman Kategori Produk -->
+
     <url>
-        <loc>https://nuscode.id/alatpesta/tenda</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://nuscode.id/produk/source-code</loc>
+        <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/tenda.webp</image:loc>
-            <image:title>Sewa Tenda Pesta - alatpesta.id</image:title>
-        </image:image>
     </url>
-    
+
     <url>
-        <loc>https://nuscode.id/alatpesta/kursi</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://nuscode.id/produk/prompt</loc>
+        <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/kursi.webp</image:loc>
-            <image:title>Sewa Kursi Pesta - alatpesta.id</image:title>
-        </image:image>
     </url>
-    
+
     <url>
-        <loc>https://nuscode.id/alatpesta/sound-system</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://nuscode.id/produk/materi-ajar</loc>
+        <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/soundsystem.webp</image:loc>
-            <image:title>Sewa Sound System - alatpesta.id</image:title>
-        </image:image>
-    </url>
-    
-    <url>
-        <loc>https://nuscode.id/alatpesta/meja</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://nuscode.id/foto/produk/meja.webp</image:loc>
-            <image:title>Sewa Meja Pesta - alatpesta.id</image:title>
-        </image:image>
-    </url>
-    
-    <!-- Halaman Layanan -->
-    <url>
-        <loc>https://nuscode.id/alatpesta/layanan</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <!-- Halaman Tentang Kami -->
-    <url>
-        <loc>https://nuscode.id/alatpesta/tentang-kami</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    
-    <!-- Halaman Kontak -->
-    <url>
-        <loc>https://nuscode.id/alatpesta/kontak</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    
-    <!-- Blog/Artikel (jika ada) -->
-    <url>
-        <loc>https://nuscode.id/alatpesta/blog</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.4</priority>
-    </url>
-    
-    <!-- Artikel Contoh -->
-    <url>
-        <loc>https://nuscode.id/alatpesta/blog/tips-memilih-alat-pesta</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.3</priority>
-    </url>
-    
-    <url>
-        <loc>https://nuscode.id/alatpesta/blog/harga-sewa-tenda-pernikahan</loc>
-        <lastmod>2026-01-16</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.3</priority>
     </url>
 
 </urlset>

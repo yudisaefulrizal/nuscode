@@ -13,10 +13,7 @@
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
-    # 3. Root redirect to /alatpesta
-    RewriteRule ^$ /alatpesta [L,R=301]
-
-    # 4. Laravel default rules
+    # 3. Laravel default rules
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
