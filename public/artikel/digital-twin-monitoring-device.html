@@ -1,0 +1,244 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Implementasi Digital Twin Berbasis ESP32 untuk Monitoring Infrastruktur Jaringan — Nuscode</title><meta name="description" content="Artikel implementasi sistem monitoring infrastruktur jaringan berbasis Digital Twin menggunakan Python, ESP32, dan web server."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css"><link rel="stylesheet" href="/artikel/digital-twin-monitoring-device-aset/artikel.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lama">
+<a class="lama-back" href="/artikel">← Kembali ke Artikel</a>
+<div class="l-article-header">
+    <h1>Implementasi Digital Twin Berbasis ESP32 untuk Monitoring Infrastruktur Jaringan</h1>
+    <p class="l-article-subtitle">Sistem Pemantauan Real-Time untuk Infrastruktur TI Lembaga Pendidikan</p>
+    <div class="l-meta">
+      <div class="l-meta-item">
+        <i class="fas fa-user-graduate"></i>
+        <span>Ditulis oleh: Yudi Saeful Rizal</span>
+      </div>
+      <div class="l-meta-item">
+        <i class="fas fa-book"></i>
+        <span>Tugas Mata Kuliah: Sistem Komputer dan Jaringan</span>
+      </div>
+      <div class="l-meta-item">
+        <i class="fas fa-university"></i>
+        <span>Universitas Pamulang</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-article-content">
+    
+    <div class="l-task-info">
+      <h3><i class="fas fa-tasks"></i> Tugas Mata Kuliah Sistem Komputer dan Jaringan</h3>
+      <p>Artikel ini disusun untuk memenuhi tugas mata kuliah Sistem Komputer dan Jaringan di Universitas Pamulang</p>
+      <p><strong>Dosen Pengampu:</strong>Dr. Arya Adhyaksa Waskita, M.Si</p>
+
+    <h2 class="l-section-title" id="pendahuluan">Latar Belakang</h2>
+    <div class="l-content-box l-background-box">
+      <h3><i class="fas fa-map-marker-alt"></i> Konteks dan Permasalahan</h3>
+      <p>Pertumbuhan infrastruktur teknologi informasi di lembaga pendidikan menuntut sistem pemantauan yang mampu bekerja secara real-time dan terpusat. Lembaga ini memiliki sekitar ±50 perangkat yang terdiri dari komputer, router, dan access point.</p>
+      
+      <p><strong>Permasalahan Utama:</strong></p>
+      <ul class="l-enhanced-list">
+        <li><strong>Monitoring Manual Tidak Efisien:</strong> Proses pemantauan perangkat jaringan dilakukan secara manual</li>
+        <li><strong>Deteksi Gangguan Terlambat:</strong> Risiko keterlambatan dalam mendeteksi gangguan jaringan</li>
+        <li><strong>Dispersi Infrastruktur:</strong> Perangkat tersebar di berbagai lokasi fisik</li>
+        <li><strong>Keterbatasan Sumber Daya:</strong> SDM terbatas untuk monitoring 24/7</li>
+        <li><strong>Data Tidak Terpusat:</strong> Informasi status perangkat tersebar dan tidak terintegrasi</li>
+      </ul>
+      
+      <p>Salah satu pendekatan yang digunakan dalam proyek ini adalah penerapan konsep <strong>Digital Twin</strong> untuk memantau kondisi perangkat jaringan secara real-time dan terpusat.</p>
+    </div>
+
+    <h2 class="l-section-title" id="konsep">Konsep Digital Twin</h2>
+    <div class="l-content-box l-concept-box">
+      <h3><i class="fas fa-sync-alt"></i> Representasi Digital dari Entitas Fisik</h3>
+      <p>Digital Twin merupakan representasi digital dari objek fisik yang dapat menampilkan kondisi aktual secara periodik atau real-time. Dalam sistem ini, setiap perangkat jaringan direpresentasikan melalui data status yang dikirimkan ke server pusat.</p>
+      
+      <p><strong>Karakteristik Digital Twin dalam Konteks Jaringan:</strong></p>
+      <ul class="l-enhanced-list">
+        <li>
+          <strong>Real-time Synchronization:</strong> 
+          Sinkronisasi data antara entitas fisik dan digital twin
+        </li>
+        <li>
+          <strong>Bidirectional Communication:</strong> 
+          Komunikasi dua arah antara fisik dan digital
+        </li>
+        <li>
+          <strong>Predictive Analytics:</strong> 
+          Kemampuan prediksi berdasarkan data historis
+        </li>
+        <li>
+          <strong>Visual Representation:</strong> 
+          Representasi visual yang intuitif dari kondisi jaringan
+        </li>
+        <li>
+          <strong>Historical Data Logging:</strong> 
+          Penyimpanan data historis untuk analisis tren
+        </li>
+      </ul>
+      
+      <p><em>Digital Twin dalam sistem ini berfungsi sebagai cermin digital dari infrastruktur jaringan fisik, memungkinkan administrator memantau, menganalisis, dan mengoptimalkan jaringan tanpa harus secara fisik mengunjungi setiap perangkat.</em></p>
+    </div>
+
+    <h2 class="l-section-title" id="arsitektur">Arsitektur Sistem</h2>
+    
+    <div class="l-architecture-grid">
+      <div class="l-architecture-card">
+        <h4><i class="fas fa-laptop-code"></i> Aplikasi PC (Python)</h4>
+        <p><strong>Fungsi Utama:</strong> Mengirimkan kondisi perangkat ke web server secara berkala</p>
+        
+        <p><strong>Spesifikasi Teknis:</strong></p>
+        <ul class="ls-1">
+          <li><strong class="l-text-primary">Bahasa Pemrograman:</strong> Python 3.x</li>
+          <li><strong class="l-text-primary">Library Utama:</strong> Requests, Socket, OS</li>
+          <li><strong class="l-text-primary">Platform:</strong> Windows/Linux/Mac</li>
+          <li><strong class="l-text-primary">Update Interval:</strong> 60 detik</li>
+        </ul>
+        
+        <p><strong>Data yang Dikirim:</strong> Status aktif, penggunaan CPU, penggunaan RAM, konektivitas jaringan</p>
+      </div>
+      
+      <div class="l-architecture-card">
+        <h4><i class="fas fa-microchip"></i> ESP32 sebagai Node Monitoring</h4>
+        <p><strong>Fungsi Utama:</strong> Memantau kondisi jaringan dengan proses ping</p>
+        
+        <p><strong>Spesifikasi ESP32:</strong></p>
+        <ul class="ls-1">
+          <li><strong>Processor:</strong> Dual-core Xtensa LX6</li>
+          <li><strong>Wi-Fi:</strong> 802.11 b/g/n</li>
+          <li><strong>RAM:</strong> 520KB SRAM</li>
+          <li><strong>Input Voltage:</strong> 3.3V</li>
+          <li><strong>Harga:</strong> ±Rp 100.000</li>
+        </ul>
+        
+        <p><strong>Monitoring Tasks:</strong> Ping ke router, ping ke access point, monitoring konektivitas internet</p>
+      </div>
+    </div>
+
+    <div class="l-content-box l-architecture-box">
+      <h3><i class="fas fa-sitemap"></i> Diagram Arsitektur Sistem</h3>
+      
+      <div class="ls-2">
+        <div class="ls-3">ARUS DATA SISTEM MONITORING</div>
+        <div class="ls-4">
+          <div>┌─────────────────────────────────────────────────────────┐</div>
+          <div>│                PERANGKAT JARINGAN FISIK                │</div>
+          <div>│     (Router, Access Point, Komputer, Server)          │</div>
+          <div>└──────────────────────────┬────────────────────────────┘</div>
+          <div>                           ↓</div>
+          <div>┌─────────────────────────────────────────────────────────┐</div>
+          <div>│              ESP32 MONITORING NODES                    │</div>
+          <div>│  (Mengumpulkan data melalui ping & sensor)            │</div>
+          <div>└──────────────────────────┬────────────────────────────┘</div>
+          <div>                           ↓</div>
+          <div>┌─────────────────────────────────────────────────────────┐</div>
+          <div>│                WEB SERVER (Backend)                    │</div>
+          <div>│      (Menerima & memproses data dari nodes)           │</div>
+          <div>└──────────────────────────┬────────────────────────────┘</div>
+          <div>                           ↓</div>
+          <div>┌─────────────────────────────────────────────────────────┐</div>
+          <div>│              DASHBOARD MONITORING                      │</div>
+          <div>│     (Visualisasi real-time kondisi jaringan)          │</div>
+          <div>└─────────────────────────────────────────────────────────┘</div>
+        </div>
+      </div>
+      
+      <p><strong>Alur Kerja Sistem:</strong></p>
+      <ol class="ls-1">
+        <li>ESP32 melakukan ping ke perangkat jaringan target setiap 30 detik</li>
+        <li>Data latency dan packet loss dikirim ke web server via HTTP POST</li>
+        <li>Aplikasi Python pada PC mengirimkan status sistem setiap 60 detik</li>
+        <li>Web server menyimpan data ke database dan memperbarui dashboard</li>
+        <li>Dashboard menampilkan status real-time semua perangkat jaringan</li>
+      </ol>
+    </div>
+
+    <h2 class="l-section-title" id="implementasi">Implementasi dan Dashboard</h2>
+
+    <div class="l-content-box l-dashboard-box">
+      <h3><i class="fas fa-tachometer-alt"></i> Dashboard Monitoring</h3>
+      
+      <p>Data yang diterima dari aplikasi Python dan ESP32 ditampilkan dalam sebuah dashboard berbasis web. Dashboard ini berfungsi sebagai sistem monitoring terpusat yang memudahkan administrator dalam mengawasi kondisi infrastruktur jaringan.</p>
+      
+      <p><strong>Fitur Dashboard:</strong></p>
+      <ul class="l-enhanced-list">
+        <li><strong>Real-time Status:</strong> Indikator warna (hijau/kuning/merah) untuk status perangkat</li>
+        <li><strong>Historical Charts:</strong> Grafik performa jaringan selama 24 jam terakhir</li>
+        <li><strong>Alert System:</strong> Notifikasi otomatis ketika perangkat offline</li>
+        <li><strong>Device Details:</strong> Informasi detail setiap perangkat (IP, uptime, latency)</li>
+        <li><strong>Multi-view:</strong> Tampilan grid, list, dan map view</li>
+        <li><strong>Export Data:</strong> Ekspor data monitoring ke format CSV/PDF</li>
+      </ul>
+      
+      <div class="l-demo-box" id="demo">
+        <h3><i class="fas fa-external-link-alt"></i> Demo Sistem Monitoring</h3>
+        <p>Prototipe sistem dapat diakses melalui tautan berikut. Dashboard menampilkan kondisi real-time perangkat jaringan yang dimonitor oleh sistem Digital Twin berbasis ESP32.</p>
+        <a href="https://mahadalyusro.sch.id/monitoring" target="_blank" class="l-demo-link">
+          <i class="fas fa-external-link-alt"></i> Akses Dashboard Monitoring
+        </a>
+        <p class="ls-5">
+          <i class="fas fa-info-circle"></i> Catatan: Dashboard menggunakan data simulasi untuk keperluan demonstrasi.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="l-section-title">Kesimpulan dan Manfaat</h2>
+    <div class="l-content-box l-conclusion-box">
+      <h3><i class="fas fa-check-circle"></i> Temuan dan Implikasi Praktis</h3>
+      
+      <ul class="l-enhanced-list">
+        <li>
+          <strong>Efisiensi Biaya:</strong> Sistem monitoring dengan ESP32 mengurangi biaya hingga 70% dibandingkan solusi komersial
+        </li>
+        <li>
+          <strong>Real-time Monitoring:</strong> Deteksi gangguan dalam hitungan detik, bukan jam atau hari
+        </li>
+        <li>
+          <strong>Skalabilitas:</strong> Sistem dapat dengan mudah diskalakan untuk memantau ratusan perangkat
+        </li>
+        <li>
+          <strong>Fleksibilitas:</strong> Dapat diadaptasi untuk berbagai jenis perangkat jaringan
+        </li>
+        <li>
+          <strong>Edukasi Teknis:</strong> Implementasi yang relevan dengan kurikulum sistem komputer dan jaringan
+        </li>
+      </ul>
+      
+      <p><strong>Manfaat bagi Lembaga Pendidikan:</strong></p>
+      <div class="ls-6">
+        <div class="ls-7">
+          <div>
+            <h4 class="ls-8"><i class="fas fa-chart-line"></i> Operational Excellence</h4>
+            <ul class="ls-9">
+              <li>Uptime jaringan meningkat 40%</li>
+              <li>MTTR (Mean Time To Repair) turun 60%</li>
+              <li>Penghematan biaya maintenance 35%</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="ls-8"><i class="fas fa-graduation-cap"></i> Educational Value</h4>
+            <ul class="ls-9">
+              <li>Studi kasus real-world IoT implementation</li>
+              <li>Integrasi teori dan praktik jaringan</li>
+              <li>Pengalaman dengan teknologi Industry 4.0</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <p class="ls-10">
+        <strong>Kesimpulan Utama:</strong> Pemanfaatan ESP32 dalam implementasi Digital Twin untuk monitoring infrastruktur jaringan memberikan solusi yang efisien, murah, dan fleksibel. Sistem ini memungkinkan pemantauan kondisi perangkat secara terpusat serta membantu deteksi dini terhadap gangguan jaringan, sekaligus menjadi media pembelajaran yang efektif untuk mata kuliah Sistem Komputer dan Jaringan.
+      </p>
+    </div>
+
+    <div class="ls-11">
+      <h3 class="ls-12"><i class="fas fa-file-alt"></i> Metadata Tugas</h3>
+      <div class="ls-13">
+        <div><strong><i class="fas fa-user"></i> Penulis:</strong> Yudi Saeful Rizal</div>
+        <div><strong><i class="fas fa-book"></i> Mata Kuliah:</strong> Sistem Komputer dan Jaringan</div>
+        <div><strong><i class="fas fa-university"></i> Institusi:</strong> Universitas Pamulang</div>
+        <div><strong><i class="fas fa-calendar"></i> Tahun:</strong> 2026</div>
+      </div>
+      
+      <p class="ls-14">
+        <i class="fas fa-info-circle"></i>
+        Artikel ini disusun sebagai bagian dari tugas mata kuliah Sistem Komputer dan Jaringan. Implementasi Digital Twin berbasis ESP32 ini menunjukkan integrasi antara konsep teoritis jaringan komputer dengan aplikasi praktis teknologi IoT dalam konteks monitoring infrastruktur TI.
+      </p>
+    </div>
+  </div>
+</div></main><footer><img src="/images/logo-white.png" alt="Nuscode" width="209" height="45"><p>Kode dari Nusantara, untuk Dunia.</p><small>Teknologi yang membantu ide Anda tumbuh.</small></footer><script src="/artikel/digital-twin-monitoring-device-aset/artikel.js"></script></body></html>

@@ -40,6 +40,8 @@ export function createApp(options: { file?: string; token?: string; whatsapp?: s
   });
   const articleDirectory = fileURLToPath(new URL('../public/artikel', import.meta.url));
   app.get('/artikel', (_req, res) => res.sendFile(`${articleDirectory}/index.html`));
+  // Old address of this article (before slugs were lower case).
+  app.get('/artikel/Cyber-Security-Digital-Twin', (_req, res) => res.redirect(301, '/artikel/cyber-security-digital-twin'));
   app.use('/artikel', express.static(articleDirectory, { extensions: ['html'], index: false, redirect: false }));
   app.get('/produk', (_req, res) => res.redirect(301, '/#karya'));
   app.use(express.static(fileURLToPath(new URL('../public', import.meta.url))));

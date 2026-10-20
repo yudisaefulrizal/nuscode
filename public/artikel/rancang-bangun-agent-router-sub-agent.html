@@ -1,0 +1,504 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Rancang Bangun Agent Router + Sub-Agent — Nuscode</title><meta name="description" content="Dari sistem monolitik menuju orkestrasi cerdas berbasis spesialisasi dan konteks — panduan teknis arsitektur AI multi-agent."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css"><link rel="stylesheet" href="/artikel/rancang-bangun-agent-router-sub-agent-aset/artikel.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lama">
+<a class="lama-back" href="/artikel">← Kembali ke Artikel</a>
+<div class="l-article-header">
+    <h1>Rancang Bangun Agent Router + Sub-Agent</h1>
+    <p class="l-article-subtitle">Dari sistem monolitik menuju orkestrasi cerdas berbasis spesialisasi dan konteks — diperkuat temuan riset multi-agent global</p>
+    <div class="l-meta">
+      <div class="l-meta-item"><i class="fas fa-tags"></i><span>AI Architecture • Multi-Agent System • n8n • LLM Orchestration</span></div>
+      <div class="l-meta-item"><i class="fas fa-flask"></i><span>Disertai Perbandingan Jurnal Ilmiah</span></div>
+    </div>
+  </div>
+
+  <div class="l-article-content">
+    <!-- DAFTAR PUSTAKA / REFERENSI -->
+    <div class="l-conclusion-box ls-1">
+      <h3><i class="fas fa-book"></i> Referensi Jurnal Ilmiah</h3>
+      <p>Berikut adalah daftar pustaka dari 3 jurnal yang direview dan dijadikan pembanding dalam artikel ini.</p>
+      
+      <div class="ls-2">
+        <div class="ls-3">
+          <span class="ls-4">[1]</span>
+          <div class="ls-5">
+            <strong>Axetorn, J., Edholm, F., Dobslaw, F., & Gren, L.</strong> (2026). 
+            <em>Addressing trust requirements in the design of an open-source multiagent LLM-based domain-specific chatbot</em>. 
+            Requirements Engineering, 31, 1–32. 
+            <span class="ls-6">https://doi.org/10.1007/s00766-026-00457-w</span>
+          </div>
+        </div>
+
+        <div class="ls-3">
+          <span class="ls-7">[2]</span>
+          <div class="ls-5">
+            <strong>Jiang, Z., Rashik, M., Panchal, K., Jasim, M., Sarvghad, A., Riahi, P., Dewitt, E., Thurber, F., & Mahyar, N.</strong> (2023). 
+            <em>CommunityBots: Creating and Evaluating A Multi-Agent Chatbot Platform for Public Input Elicitation</em>. 
+            Proceedings of the ACM on Human-Computer Interaction (CSCW), 7(CSCW1), Article 36, 1–32. 
+            <span class="ls-6">https://doi.org/10.1145/3579469</span>
+          </div>
+        </div>
+
+        <div class="ls-3">
+          <span class="ls-8">[3]</span>
+          <div class="ls-5">
+            <strong>Jiang, X., Hu, T., Qin, Y., Wang, G., Zhou, H., Chen, K., Huang, G., Lu, R., & Tang, S.</strong> (2025). 
+            <em>ChatMap: Mining Human Thought Processes for Customer Service Chatbots via Multi-Agent Collaboration</em>. 
+            In Findings of the Association for Computational Linguistics (ACL Findings 2025). 
+            <span class="ls-6">https://arxiv.org/abs/2501.00332</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ls-9">
+        <p class="ls-10">
+          <i class="fas fa-check-circle ls-11"></i>
+          <strong>Ringkasan:</strong> Ketiga jurnal di atas secara independen memvalidasi keunggulan arsitektur multi-agent — 
+          pemisahan peran agent, spesialisasi domain, serta manajemen konteks yang efisien — yang sejalan dengan pendekatan yang diuraikan dalam artikel ini.
+        </p>
+      </div>
+    </div>
+    <!-- 01 -->
+    <h2 class="l-section-title">01 — Apa Itu Arsitektur Agent Router?</h2>
+    <div class="l-conclusion-box l-background-box">
+      <h3><i class="fas fa-robot"></i> Paradigma Baru Sistem AI Percakapan</h3>
+      <p>Dalam ekosistem kecerdasan buatan percakapan, mayoritas sistem dibangun dengan satu model bahasa besar yang menangani seluruh spektrum permintaan pengguna — dari sapaan sederhana, pertanyaan teknis, hingga pengambilan keputusan kompleks. Pendekatan ini tampak mudah diimplementasikan, namun menyimpan biaya tersembunyi yang signifikan seiring bertambahnya kompleksitas domain.</p>
+      <p><strong>Arsitektur Agent Router + Sub-Agent</strong> menawarkan paradigma yang berbeda. Sebuah komponen sentral — disebut <em>Router</em> — bertugas tunggal: membaca niat pengguna, merekonstruksi query secara semantik, lalu mendelegasikan ke satu dari beberapa Sub-Agent yang masing-masing ahli dalam domain tertentu.</p>
+      <div class="l-highlight-quote">
+        <p>Analogi: Bayangkan sebuah rumah sakit. Pasien tidak langsung ditangani oleh seluruh dokter sekaligus — ada triase yang mengarahkan pasien ke spesialis yang tepat. Router adalah triase; sub-agent adalah para spesialis.</p>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <h2 class="l-section-title">02 — Masalah Sistem Monolitik</h2>
+    <div class="l-conclusion-box l-methodology-box">
+      <h3><i class="fas fa-exclamation-circle"></i> Tiga Tekanan Struktural</h3>
+      <p>Sistem AI percakapan berbasis model tunggal menghadapi tiga tekanan struktural yang semakin berat seiring pertumbuhan cakupan layanan.</p>
+      <ul class="l-enhanced-list">
+        <li><strong>Prompt Membengkak:</strong> Ketika satu model harus melayani banyak domain, system prompt-nya harus mencakup semua pengetahuan, semua aturan, dan semua konteks dari setiap domain. Sebuah sistem layanan dengan 8 bidang bisa menghasilkan system prompt ribuan token hanya untuk instruksi dasar — sebelum satu kata pengguna pun masuk ke konteks.</li>
+        <li><strong>Degradasi Fokus:</strong> Model bahasa besar mengalami penurunan performa ketika instruksi dalam konteks terlalu panjang atau mengandung domain yang saling bertentangan. Instruksi untuk menjawab pertanyaan teknis dengan format kode bisa "bocor" ke jawaban pertanyaan emosional yang seharusnya hangat.</li>
+        <li><strong>Sulit Diuji dan Dipelihara:</strong> Ketika sebuah domain mengalami perubahan kebijakan, satu model monolitik mengharuskan seluruh sistem dievaluasi ulang. Tidak ada isolasi; perubahan di satu bagian berpotensi memengaruhi perilaku di bagian lain yang tidak terduga.</li>
+      </ul>
+      <div class="l-highlight-quote">
+        <p>"Sistem yang mencoba tahu segalanya seringkali tidak tahu apa-apa dengan cukup baik."</p>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <h2 class="l-section-title">03 — Arsitektur: Router + Sub-Agent</h2>
+    <div class="l-conclusion-box l-objective-box">
+      <h3><i class="fas fa-sitemap"></i> Dua Lapisan Tanggung Jawab</h3>
+      <p>Sistem yang dirancang dengan pola ini memisahkan tanggung jawab secara eksplisit ke dalam dua lapisan: <strong>Router</strong> sebagai satu-satunya titik kontak dengan input pengguna mentah, dan <strong>Sub-Agent</strong> sebagai entitas terisolasi yang masing-masing memiliki system prompt, referensi pengetahuan, dan format output tersendiri.</p>
+
+      <div class="l-arch-diagram">
+        <svg class="ls-12" viewBox="0 0 620 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 Z" fill="#039f5b"/></marker>
+            <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 Z" fill="#f59e0b"/></marker>
+            <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 Z" fill="#7c3aed"/></marker>
+            <linearGradient id="grad-router" x1="0%" y1="0%" x2="100%" y2="100%"><stop class="ls-13" offset="0%"/><stop class="ls-14" offset="100%"/></linearGradient>
+            <linearGradient id="grad-input" x1="0%" y1="0%" x2="100%" y2="100%"><stop class="ls-15" offset="0%"/><stop class="ls-16" offset="100%"/></linearGradient>
+            <linearGradient id="grad-output" x1="0%" y1="0%" x2="100%" y2="100%"><stop class="ls-17" offset="0%"/><stop class="ls-18" offset="100%"/></linearGradient>
+            <linearGradient id="grad-context" x1="0%" y1="0%" x2="100%" y2="0%"><stop class="ls-19" offset="0%"/><stop class="ls-20" offset="100%"/></linearGradient>
+            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.10)"/></filter>
+          </defs>
+          <rect x="195" y="16" width="230" height="44" rx="10" fill="url(#grad-input)" filter="url(#shadow)"/>
+          <text x="310" y="33" text-anchor="middle" fill="white" font-size="11" font-weight="600">👤  Input Pengguna</text>
+          <text x="310" y="50" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9.5">pertanyaan giliran ke-N</text>
+          <line x1="310" y1="60" x2="310" y2="95" stroke="#039f5b" stroke-width="2" marker-end="url(#arrow-green)"/>
+          <rect x="160" y="98" width="300" height="54" rx="12" fill="url(#grad-router)" filter="url(#shadow)"/>
+          <text x="310" y="119" text-anchor="middle" fill="white" font-size="13" font-weight="700">⇄  AGENT ROUTER</text>
+          <text x="310" y="137" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="9.5">Klasifikasi · Rekonstruksi · Delegasi</text>
+          <line x1="310" y1="152" x2="310" y2="192" stroke="#039f5b" stroke-width="2" marker-end="url(#arrow-green)"/>
+          <rect x="20" y="195" width="90" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="65" y="211" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="700">📋 Pendaftaran</text>
+          <text x="65" y="225" text-anchor="middle" fill="#555" font-size="8">Biaya · Syarat · Seleksi</text>
+          <rect x="122" y="195" width="88" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="166" y="211" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="700">🕌 Kesantrian</text>
+          <text x="166" y="225" text-anchor="middle" fill="#555" font-size="8">Absensi · Izin</text>
+          <rect x="222" y="195" width="96" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="270" y="211" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="700">🎓 Kependidikan</text>
+          <text x="270" y="225" text-anchor="middle" fill="#555" font-size="8">Hafalan · Kurikulum</text>
+          <rect x="330" y="195" width="80" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="370" y="211" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="700">📣 Humas</text>
+          <text x="370" y="225" text-anchor="middle" fill="#555" font-size="8">Publik · Dakwah</text>
+          <rect x="422" y="195" width="70" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="457" y="211" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="700">💻 IT</text>
+          <text x="457" y="225" text-anchor="middle" fill="#555" font-size="8">Server · Error</text>
+          <rect x="504" y="195" width="70" height="38" rx="8" fill="white" stroke="#039f5b" stroke-width="1.5" stroke-dasharray="4,2" filter="url(#shadow)"/>
+          <text x="539" y="215" text-anchor="middle" fill="#039f5b" font-size="9" font-weight="600">+ domain</text>
+          <text x="539" y="227" text-anchor="middle" fill="#aaa" font-size="8">modular</text>
+          <line x1="240" y1="152" x2="65" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="270" y1="152" x2="166" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="295" y1="152" x2="270" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="325" y1="152" x2="370" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="350" y1="152" x2="457" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="370" y1="152" x2="539" y2="195" stroke="#039f5b" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="310" y1="233" x2="310" y2="272" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+          <rect x="160" y="275" width="300" height="44" rx="10" fill="url(#grad-output)" filter="url(#shadow)"/>
+          <text x="310" y="293" text-anchor="middle" fill="white" font-size="11" font-weight="700">✓  Respons Terstruktur</text>
+          <text x="310" y="309" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="9">"jawaban" + "status_terjawab"</text>
+          <rect x="195" y="338" width="230" height="30" rx="15" fill="url(#grad-context)" filter="url(#shadow)"/>
+          <text x="310" y="349" text-anchor="middle" fill="#1a1a1a" font-size="9.5" font-weight="700">💾  Konteks S-P-O disimpan</text>
+          <text x="310" y="362" text-anchor="middle" fill="rgba(0,0,0,0.55)" font-size="8.5">"User menanyakan biaya SMP Al Yusro" (~10 token)</text>
+          <line x1="310" y1="319" x2="310" y2="336" stroke="#f59e0b" stroke-width="1.8" marker-end="url(#arrow-amber)"/>
+          <line x1="195" y1="353" x2="100" y2="353" stroke="#f59e0b" stroke-width="2"/>
+          <line x1="100" y1="353" x2="100" y2="125" stroke="#f59e0b" stroke-width="2"/>
+          <line x1="100" y1="125" x2="158" y2="125" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-amber)"/>
+          <rect x="52" y="205" width="38" height="95" rx="6" fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
+          <text transform="translate(75,298) rotate(-90)" text-anchor="middle" fill="#92680a" font-size="8.5" font-weight="600" letter-spacing="0.03em">menggantikan histori percakapan</text>
+          <text x="127" y="348" text-anchor="middle" fill="#92680a" font-size="8.5" font-weight="600">↩ diwariskan ke giliran berikutnya</text>
+          <rect x="195" y="400" width="230" height="38" rx="10" fill="white" stroke="#2d3748" stroke-width="1.5" stroke-dasharray="5,3" filter="url(#shadow)" opacity="0.75"/>
+          <text x="310" y="416" text-anchor="middle" fill="#2d3748" font-size="10" font-weight="600">👤  Input Pengguna — Giliran N+1</text>
+          <text x="310" y="430" text-anchor="middle" fill="#888" font-size="8.5">pertanyaan ambigu / tanpa entitas baru</text>
+          <line x1="427" y1="419" x2="490" y2="419" stroke="#2d3748" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <line x1="490" y1="419" x2="490" y2="125" stroke="#2d3748" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <line x1="490" y1="125" x2="462" y2="125" stroke="#2d3748" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-green)"/>
+          <text x="508" y="280" transform="rotate(90,508,280)" text-anchor="middle" fill="#555" font-size="8" font-weight="600">+ konteks S-P-O diwariskan</text>
+        </svg>
+        <div class="ls-21">
+          <span><span class="ls-22"></span>Alur utama</span>
+          <span><span class="ls-23"></span>Respons sub-agent</span>
+          <span><span class="ls-24"></span>Feedback konteks S-P-O</span>
+          <span><span class="ls-25"></span>Giliran berikutnya</span>
+        </div>
+      </div>
+      <p>Tidak ada satu model yang mencoba tahu segalanya — setiap agent hanya tahu apa yang perlu ia tahu.</p>
+    </div>
+
+    <!-- 04 -->
+    <h2 class="l-section-title">04 — Keunggulan 1: Efisiensi Token</h2>
+    <div class="l-conclusion-box l-token-box">
+      <h3><i class="fas fa-coins"></i> Logika Token yang Dibalik</h3>
+      <p>Token adalah satuan biaya dan latensi dalam sistem berbasis model bahasa besar. Dalam arsitektur monolitik, seluruh system prompt dikirim ulang di setiap panggilan API, bahkan ketika pengguna hanya mengucapkan salam.</p>
+      <p>Arsitektur Router + Sub-Agent membalik logika ini. Router hanya membawa instruksi ringkas untuk routing. Sub-agent yang dipanggil hanya membawa konteks domain-nya sendiri.</p>
+      <div class="l-token-stats">
+        <div class="l-token-stat"><div class="l-number">~600</div><div class="l-label">Token Router per Panggilan</div></div>
+        <div class="l-token-stat"><div class="l-number">~400</div><div class="l-label">Token Sub-Agent per Domain</div></div>
+        <div class="l-token-stat"><div class="l-number l-blue">~10</div><div class="l-label">Token Konteks S-P-O</div></div>
+        <div class="l-token-stat"><div class="l-number l-red">4000+</div><div class="l-label">Token Sistem Monolitik</div></div>
+      </div>
+      <p>Sistem ini menggantikan mekanisme memori percakapan penuh dengan sebuah string ringkas berformat <strong>Subjek-Predikat-Objek</strong>. Alih-alih mengirim ulang 10 pesan terakhir, sistem hanya mengirim satu kalimat seperti <em>"User menanyakan biaya masuk SMP Al Yusro"</em> — sekitar 10 token.</p>
+      <div class="ls-26">
+        <strong>Hasil Nyata:</strong> Konteks S-P-O menghemat 90%+ token dibandingkan memory window penuh, sambil mempertahankan akurasi warisan entitas antar giliran percakapan.
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <h2 class="l-section-title">05 — Keunggulan 2: Spesialisasi Konteks</h2>
+    <div class="l-conclusion-box l-findings-box">
+      <h3><i class="fas fa-layer-group"></i> Domain yang Bersih, Jawaban yang Tajam</h3>
+      <p>Setiap sub-agent beroperasi dengan system prompt yang dirancang khusus untuk satu domain. Tidak ada instruksi yang saling mengganggu — model yang hanya "memikirkan" satu domain pada satu waktu menghasilkan respons yang lebih terfokus, lebih akurat, dan lebih konsisten.</p>
+      <div class="l-domain-grid">
+        <div class="l-domain-card"><i class="fas fa-graduation-cap"></i><strong>Kependidikan</strong><span>Kurikulum · Hafalan · Metode Ajar</span></div>
+        <div class="l-domain-card"><i class="fas fa-mosque"></i><strong>Kesantrian</strong><span>Absensi · Izin · Pelanggaran</span></div>
+        <div class="l-domain-card"><i class="fas fa-clipboard-list"></i><strong>Pendaftaran</strong><span>Syarat · Biaya · Seleksi</span></div>
+        <div class="l-domain-card"><i class="fas fa-server"></i><strong>IT</strong><span>Server · Jaringan · Coding</span></div>
+        <div class="l-domain-card"><i class="fas fa-bullhorn"></i><strong>Humas & Dakwah</strong><span>Pengumuman · Publik</span></div>
+        <div class="l-domain-card"><i class="fas fa-images"></i><strong>Media</strong><span>Caption · Desain · Konten</span></div>
+        <div class="l-domain-card"><i class="fas fa-map-marker-alt"></i><strong>Alamat</strong><span>Lokasi · Petunjuk Arah</span></div>
+        <div class="l-domain-card"><i class="fas fa-comments"></i><strong>Basa-Basi</strong><span>Salam · Sapaan · Small Talk</span></div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <h2 class="l-section-title">06 — Keunggulan 3: Manajemen Konteks Lintas Giliran</h2>
+    <div class="l-conclusion-box l-insights-box">
+      <h3><i class="fas fa-exchange-alt"></i> Konteks S-P-O: Solusi Elegan</h3>
+      <p>Arsitektur ini memperkenalkan <strong>konteks S-P-O (Subjek-Predikat-Objek)</strong> — setiap respons router menghasilkan satu string yang merangkum inti percakapan, bukan seluruh history.</p>
+      <div class="l-code-block">
+        <span class="l-comment">// Giliran 1 — User bertanya tentang program SMP</span><br>
+        <span class="l-key">konteks</span>: <span class="l-str">"User menanyakan ketersediaan program SMP Al Yusro"</span><br><br>
+        <span class="l-comment">// Giliran 2 — User bertanya: "terus biayanya berapa?"</span><br>
+        <span class="l-comment">// Router mewarisi entitas "SMP" dari konteks sebelumnya</span><br>
+        <span class="l-key">query</span>: <span class="l-str">"biaya masuk SMP Al Yusro"</span> <span class="l-comment">← bukan hanya "biaya masuk"</span>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <h2 class="l-section-title">07 — Keunggulan 4: Skalabilitas Modular</h2>
+    <div class="l-conclusion-box l-scale-box">
+      <h3><i class="fas fa-expand-arrows-alt"></i> Tumbuh Horizontal, Bukan Vertikal</h3>
+      <p>Sistem monolitik tumbuh secara vertikal. Arsitektur Router + Sub-Agent tumbuh secara horizontal — menambah domain baru berarti menambah satu sub-agent baru, lalu mendaftarkannya dalam routing table Router.</p>
+      <div class="l-methodology-grid">
+        <div class="l-method-card">
+          <h4><i class="fas fa-plus-circle"></i> Penambahan Domain Baru</h4>
+          <p>Komponen yang sudah berjalan tidak perlu dimodifikasi. Sub-agent yang sudah stabil tetap stabil. Hanya Router yang perlu memperbarui daftar agent dan aturan routing-nya.</p>
+        </div>
+        <div class="l-method-card">
+          <h4><i class="fas fa-dollar-sign"></i> Penggantian Model per Domain</h4>
+          <p>Modularitas ini membuka kemungkinan menggunakan model yang berbeda untuk domain berbeda. Domain FAQ sederhana bisa menggunakan model yang lebih ringan dan murah.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <h2 class="l-section-title">08 — Keunggulan 5: Output Terstruktur dan Deterministik</h2>
+    <div class="l-conclusion-box l-data-box">
+      <h3><i class="fas fa-code"></i> JSON Berskema — Dapat Diandalkan</h3>
+      <p>Ketika sistem AI diintegrasikan dengan platform otomasi seperti <strong>n8n</strong>, format output yang konsisten adalah kebutuhan mutlak. Dalam arsitektur ini, setiap lapisan menghasilkan JSON yang didefinisikan skemanya secara eksplisit.</p>
+      <div class="l-two-column-grid ls-27">
+        <div>
+          <p class="ls-28"><i class="fas fa-random ls-29"></i>Router Output</p>
+          <div class="l-code-block ls-30">
+            {<br>&nbsp;&nbsp;<span class="l-key">"agent"</span>: <span class="l-str">"pendaftaran"</span>,<br>&nbsp;&nbsp;<span class="l-key">"query"</span>: <span class="l-str">"biaya SMP..."</span>,<br>&nbsp;&nbsp;<span class="l-key">"konteks"</span>: <span class="l-str">"User ..."</span>,<br>&nbsp;&nbsp;<span class="l-key">"confidence"</span>: <span class="l-val">0.82</span><br>}
+          </div>
+        </div>
+        <div>
+          <p class="ls-28"><i class="fas fa-robot ls-29"></i>Sub-Agent Output</p>
+          <div class="l-code-block ls-30">
+            {<br>&nbsp;&nbsp;<span class="l-key">"jawaban"</span>: <span class="l-str">"Biaya masuk SMP..."</span>,<br>&nbsp;&nbsp;<span class="l-key">"status_terjawab"</span>: <span class="l-str">"ya"</span><br>}<br><br><span class="l-comment">// ✓ skema tervalidasi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 — SECTION BARU: PERBANDINGAN JURNAL (3 jurnal, tanpa 2018) -->
+    <h2 class="l-section-title">09 — Perbandingan dengan Riset Multi-Agent Global</h2>
+
+    <div class="l-conclusion-box l-journal-box">
+      <h3><i class="fas fa-book-open"></i> Landasan dari Penelitian Akademik</h3>
+      <div class="l-journal-badge"><i class="fas fa-graduation-cap"></i> Didukung 3 Jurnal Ilmiah Peer-Reviewed</div>
+      <p>Arsitektur yang diajukan bukan hanya eksperimen praktis — ia bersesuaian dengan temuan-temuan riset multi-agent global yang telah dievaluasi secara akademik. Berikut perbandingan dengan tiga studi ilmiah yang relevan.</p>
+
+      <!-- Jurnal 1: Axetorn et al. 2026 -->
+      <div class="ls-31">
+        <div class="ls-32">
+          <div class="ls-33">Jurnal 1 · Requirements Engineering, 2026</div>
+          <div class="ls-34">Axetorn et al. — <em>Addressing trust requirements in the design of an open-source multiagent LLM-based domain-specific chatbot</em></div>
+        </div>
+
+        <div class="l-journal-grid">
+          <div class="l-journal-col">
+            <h4 class="ls-35"><i class="fas fa-flask ls-35"></i> Temuan Riset</h4>
+            <p>Studi ini merancang chatbot HR multi-agent menggunakan arsitektur tiga-agent: <strong>judge</strong> (filter dokumen relevan), <strong>generator</strong> (sintesis jawaban), dan <strong>checker</strong> (validasi kualitas) — menunjukkan bahwa pemisahan peran agent meningkatkan keandalan sistem secara signifikan.</p>
+            <p>Hasil kuantitatif: sistem mencapai skor <strong>faithfulness ≥ 0.86</strong> dan disetujui oleh 9 dari 11 peserta evaluasi sebagai siap deployment. Temuan kunci: <em>reliabilitas</em> adalah faktor kepercayaan paling kritis bagi pengguna.</p>
+            <div class="l-tag-row"><span class="l-j-tag">Judge Agent</span><span class="l-j-tag">Generator Agent</span><span class="l-j-tag">Checker Agent</span><span class="l-j-tag">LangGraph</span><span class="l-j-tag">DeepEval</span></div>
+          </div>
+          <div class="l-journal-col">
+            <h4 class="ls-36"><i class="fas fa-exchange-alt ls-36"></i> Perbandingan</h4>
+            <p>Arsitektur yang diajukan mengimplementasikan prinsip serupa: Router berperan sebagai <em>judge</em> (menentukan domain yang tepat), setiap Sub-Agent sebagai <em>generator</em> (menghasilkan jawaban dari data domain), dan field <code>status_terjawab</code> sebagai <em>checker</em> ringan.</p>
+            <p>Perbedaan utama: arsitektur ini menggunakan <strong>n8n workflow</strong> sebagai orkestrator (bukan LangGraph), dan lebih menekankan efisiensi token via S-P-O dibanding validasi kualitas iteratif.</p>
+            <div class="ls-37">
+              <div class="l-metric-row"><span class="l-metric-label">Pemisahan peran agent</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-38"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Output terstruktur</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-39"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Efisiensi token S-P-O</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-40"></div></div><span class="l-metric-val">Lebih jauh</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jurnal 2: Jiang et al. 2023 (CommunityBots) -->
+      <div class="ls-41">
+        <div class="ls-32">
+          <div class="ls-42">Jurnal 2 · ACM CSCW, 2023</div>
+          <div class="ls-34">Jiang et al. — <em>CommunityBots: Creating and Evaluating A Multi-Agent Chatbot Platform for Public Input Elicitation</em></div>
+        </div>
+
+        <div class="l-journal-grid">
+          <div class="l-journal-col">
+            <h4 class="ls-43"><i class="fas fa-flask ls-43"></i> Temuan Riset</h4>
+            <p>CommunityBots membagi percakapan multi-domain ke dalam tiga chatbot spesialis (household, work, healthcare) dengan mekanisme <strong>CTM (Conversation and Topic Management)</strong> yang mengelola perpindahan topik dan chatbot secara otomatis.</p>
+            <p>Dari 96 peserta: pengguna CommunityBots memberikan respons <strong>10% lebih spesifik</strong>, <strong>20% lebih ekspansif</strong>, dan mengalami <strong>50% lebih sedikit interupsi</strong> dibanding sistem agen tunggal.</p>
+            <div class="l-tag-row"><span class="l-j-tag">CTM Mechanism</span><span class="l-j-tag">Topic Switching</span><span class="l-j-tag">Chatbot Switching</span><span class="l-j-tag">NLU</span></div>
+          </div>
+          <div class="l-journal-col">
+            <h4 class="ls-36"><i class="fas fa-exchange-alt ls-36"></i> Perbandingan</h4>
+            <p>CommunityBots dan arsitektur yang diajukan sama-sama membuktikan bahwa spesialisasi domain per-agent menghasilkan kualitas interaksi yang lebih tinggi. CTM di CommunityBots analog dengan Router — keduanya mendeteksi intent dan mengarahkan ke agent yang tepat.</p>
+            <p>Arsitektur ini melangkah lebih jauh dengan mekanisme <strong>warisan konteks S-P-O</strong> yang ringan, sedangkan CommunityBots menggunakan threshold panjang respons untuk deteksi disengagement.</p>
+            <div class="ls-37">
+              <div class="l-metric-row"><span class="l-metric-label">Spesialisasi domain</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-44"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Manajemen perpindahan</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-45"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Efisiensi token</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-40"></div></div><span class="l-metric-val">↑ Lebih efisien</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jurnal 3: ChatMap -->
+      <div class="ls-46">
+        <div class="ls-32">
+          <div class="ls-47">Jurnal 3 · ACL Findings, 2025</div>
+          <div class="ls-34">Jiang et al. (Alibaba) — <em>ChatMap: Mining Human Thought Processes for Customer Service Chatbots via Multi-Agent Collaboration</em></div>
+        </div>
+
+        <div class="l-journal-grid">
+          <div class="l-journal-col">
+            <h4 class="ls-48"><i class="fas fa-flask ls-48"></i> Temuan Riset</h4>
+            <p>ChatMap dari Alibaba/Taobao menggunakan pipeline 5-agent: <strong>Extraction → Clustering → Induction → Post-Processing → Quality Inspection</strong> untuk menambang "service thoughts" dari 10.000 dialog historis.</p>
+            <p>Hasil online A/B test di Taobao: Human Agent Transfer Rate turun dari 20.28% → <strong>18.99%</strong>, Customer Satisfaction Rate naik dari 45.32% → <strong>46.10%</strong>. Pendekatan ini setara dengan anotasi manual ahli.</p>
+            <div class="l-tag-row"><span class="l-j-tag">Service Thoughts</span><span class="l-j-tag">Inductive Reasoning</span><span class="l-j-tag">Quality Inspection</span><span class="l-j-tag">A/B Testing</span></div>
+          </div>
+          <div class="l-journal-col">
+            <h4 class="ls-36"><i class="fas fa-exchange-alt ls-36"></i> Perbandingan</h4>
+            <p>Keduanya membuktikan bahwa pemisahan tanggung jawab per-agent — bukan satu model monolitik — menghasilkan kualitas dan keandalan yang lebih tinggi. "Service thoughts" di ChatMap analog dengan system prompt per-domain di Sub-Agent.</p>
+            <p>Arsitektur yang diajukan menggunakan data statis (dokumen kebijakan pondok), sementara ChatMap mined knowledge dari dialog historis. Keduanya menghasilkan <strong>domain-specific knowledge yang terisolasi</strong> per agent.</p>
+            <div class="ls-37">
+              <div class="l-metric-row"><span class="l-metric-label">Isolasi pengetahuan domain</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-49"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Pipeline multi-agent</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-50"></div></div><span class="l-metric-val">Selaras</span></div>
+              <div class="l-metric-row"><span class="l-metric-label">Produksi nyata</span><div class="l-metric-bar-wrap"><div class="l-metric-bar ls-51"></div></div><span class="l-metric-val">Keduanya</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 — Tabel Komparasi Lintas Jurnal (3 jurnal) -->
+    <h2 class="l-section-title">10 — Sintesis vs Riset Global</h2>
+    <div class="l-conclusion-box l-compare-box">
+      <h3><i class="fas fa-balance-scale"></i> Posisi dalam Lanskap Riset Multi-Agent</h3>
+      <p>Berikut adalah peta perbandingan pendekatan yang diajukan dengan tiga riset multi-agent terkemuka di bidangnya.</p>
+      <div class="ls-52">
+        <table class="l-styled-table">
+          <thead><tr><th>Dimensi</th><th>Arsitektur yang Diajukan</th><th>Axetorn 2026 (HR Bot)</th><th>CommunityBots 2023</th><th>ChatMap 2025</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Arsitektur utama</strong></td><td class="ls-53">Router + N Sub-Agent</td><td>Judge + Generator + Checker</td><td>3 Specialist Bots + CTM</td><td>5-Agent Pipeline</td></tr>
+            <tr><td><strong>Isolasi domain</strong></td><td class="ls-53">✓ Per sub-agent</td><td class="ls-53">✓ Per agent role</td><td class="ls-53">✓ Per chatbot</td><td class="ls-53">✓ Per topic cluster</td></tr>
+            <tr><td><strong>Manajemen konteks</strong></td><td class="ls-53">S-P-O (~10 token)</td><td class="ls-54">Full history / RAG</td><td class="ls-54">Response length threshold</td><td class="ls-54">Full dialog history</td></tr>
+            <tr><td><strong>Output format</strong></td><td class="ls-53">JSON berskema</td><td>Natural language + citation</td><td>Natural language</td><td>Natural language + thought</td></tr>
+            <tr><td><strong>Integrasi otomasi</strong></td><td class="ls-53">n8n (native)</td><td class="ls-54">Terminal app, tidak native</td><td class="ls-54">Web UI only</td><td class="ls-54">Platform internal Taobao</td></tr>
+            <tr><td><strong>Efisiensi token</strong></td><td class="ls-53">Sangat tinggi (S-P-O)</td><td class="ls-55">Sedang (RAG filtering)</td><td class="ls-54">Rendah (full history)</td><td class="ls-55">Sedang (per-cluster)</td></tr>
+            <tr><td><strong>Pengujian data nyata</strong></td><td class="ls-53">112 pertanyaan nyata</td><td class="ls-53">2.860 evaluation runs</td><td class="ls-53">96 crowd workers</td><td class="ls-53">A/B test Taobao live</td></tr>
+            <tr><td><strong>Akurasi routing</strong></td><td class="ls-53">100% (112/112)</td><td class="ls-53">≥ 0.86 faithfulness</td><td class="ls-53">Signifikan lebih baik</td><td class="ls-53">+0.78% satisfaction</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ls-56">
+        <strong><i class="fas fa-lightbulb ls-57"></i>Insight Komparatif:</strong> Keunggulan unik arsitektur yang diajukan terletak pada kombinasi <strong>manajemen konteks S-P-O yang efisien</strong> (tidak ditemukan di riset lain dalam bentuk ini) dengan <strong>integrasi native platform otomasi n8n</strong> dan output JSON deterministik yang memungkinkan branching logis otomatis.
+      </div>
+    </div>
+
+    <!-- 11 — Testing -->
+    <h2 class="l-section-title">11 — Hasil Testing: 112 Pertanyaan Nyata</h2>
+    <div class="l-conclusion-box l-limitations-box">
+      <h3><i class="fas fa-flask"></i> Hasil Data Testing</h3>
+      <p>Arsitektur ini diuji menggunakan <strong>112 pertanyaan nyata</strong> dari calon santri, wali santri, dan pengguna aktif sistem — bukan data buatan. Router mengarahkan ke sub-agent yang tepat di setiap kasus.</p>
+      <div class="l-token-stats ls-27">
+        <div class="l-token-stat"><div class="l-number">112</div><div class="l-label">Total Pertanyaan Diuji</div></div>
+        <div class="l-token-stat"><div class="l-number">8</div><div class="l-label">Domain Sub-Agent Aktif</div></div>
+        <div class="l-token-stat"><div class="l-number l-blue">100%</div><div class="l-label">Akurasi Routing ke Domain yang Tepat</div></div>
+        <div class="l-token-stat"><div class="l-number l-amber">~10</div><div class="l-label">Token Konteks S-P-O per Giliran</div></div>
+      </div>
+      <div class="ls-58">
+        <table class="l-styled-table">
+          <thead><tr><th>Domain Sub-Agent</th><th>Jumlah Pertanyaan</th><th>Proporsi</th><th>Contoh Input Nyata</th></tr></thead>
+          <tbody>
+            <tr><td><strong>pendaftaran</strong></td><td>62</td><td><div class="ls-59"><div class="ls-60"></div></div><span class="ls-61">55%</span></td><td class="ls-62">"sarat pendaftaran apa aja min"</td></tr>
+            <tr><td><strong>kependidikan</strong></td><td>16</td><td><div class="ls-59"><div class="ls-63"></div></div><span class="ls-61">14%</span></td><td class="ls-62">"Program tahfidz ny gimana ustadz 🙏🏻"</td></tr>
+            <tr><td><strong>alamat</strong></td><td>9</td><td><div class="ls-59"><div class="ls-64"></div></div><span class="ls-61">8%</span></td><td class="ls-62">"lokasi mahad dimana ustadz"</td></tr>
+            <tr><td><strong>kesantrian</strong></td><td>8</td><td><div class="ls-59"><div class="ls-65"></div></div><span class="ls-61">7%</span></td><td class="ls-62">"Ustadz Afwan, ana udah di Ma'had..."</td></tr>
+            <tr><td><strong>basa_basi</strong></td><td>7</td><td><div class="ls-59"><div class="ls-66"></div></div><span class="ls-61">6%</span></td><td class="ls-62">"Assalamualaikum, izin bertanya ustadz"</td></td>
+            <tr><td><strong>humas_dakwah</strong></td><td>5</td><td><div class="ls-59"><div class="ls-67"></div></div><span class="ls-61">5%</span></td><td class="ls-62">"fasilitas mahad apa aja min"</td></tr>
+            <tr><td><strong>it</strong></td><td>5</td><td><div class="ls-59"><div class="ls-68"></div></div><span class="ls-61">5%</span></td><td class="ls-62">"Hp di riset lupa akun dan pasword nya"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Showcase (disingkat) -->
+    <div class="l-conclusion-box l-findings-box">
+      <h3><i class="fas fa-vial"></i> Showcase: Pertanyaan Nyata & Hasil Routing</h3>
+      <div class="ls-27">
+        <div class="ls-69"><span class="ls-70">KASUS 1 — Typo & Bahasa Informal</span></div>
+        <div class="l-code-block">
+          <span class="l-comment">// Typo "sarat" → "syarat", tanpa kapital</span><br>
+          <span class="l-str">"sarat pendaftaran apa aja min"</span><br><br>
+          {<br>&nbsp;&nbsp;<span class="l-key">"agent"</span>: <span class="l-val">"pendaftaran"</span>,<br>&nbsp;&nbsp;<span class="l-key">"query"</span>: <span class="l-str">"syarat pendaftaran Ma'had Al Yusro"</span>,<br>&nbsp;&nbsp;<span class="l-key">"konteks"</span>: <span class="l-str">"User menanyakan syarat pendaftaran untuk Ma'had Al Yusro"</span>,<br>&nbsp;&nbsp;<span class="l-key">"confidence"</span>: <span class="l-val">0.82</span><br>}
+        </div>
+      </div>
+      <div class="ls-27">
+        <div class="ls-69"><span class="ls-71">KASUS 2 — Warisan Konteks S-P-O</span></div>
+        <div class="l-code-block">
+          <span class="l-comment">// Giliran 2 — "biayanya berapa" (ambigu total)</span><br>
+          <span class="l-comment">// Router mewarisi entitas "SMP" dari konteks sebelumnya</span><br>
+          {<br>&nbsp;&nbsp;<span class="l-key">"agent"</span>: <span class="l-val">"pendaftaran"</span>,<br>&nbsp;&nbsp;<span class="l-key">"query"</span>: <span class="l-str">"biaya pendaftaran jenjang SMP Ma'had Al Yusro"</span><br>}
+        </div>
+        <p class="ls-72"><i class="fas fa-check-circle ls-73"></i> Selaras dengan temuan Axetorn 2026: memory management yang efisien adalah fondasi kepercayaan pengguna.</p>
+      </div>
+    </div>
+
+    <!-- 12 Kesimpulan -->
+    <h2 class="l-section-title">12 — Kesimpulan</h2>
+    <div class="l-conclusion-box l-background-box">
+      <h3><i class="fas fa-crosshairs"></i> Fokus Utama: Dua Masalah Fundamental Agent</h3>
+      <p>Sistem ini dirancang dengan satu prioritas: <strong>akurasi</strong>. Dua masalah paling umum dalam sistem AI berbasis agent diselesaikan secara bersamaan — dan didukung oleh konsensus tiga riset ilmiah global.</p>
+      <div class="ls-74">
+        <div class="ls-75">
+          <div class="ls-76">1</div>
+          <h4 class="ls-77">Masalah Konteks: Histori Percakapan yang Membengkak</h4>
+        </div>
+        <div class="l-two-column-grid">
+          <div class="ls-78">
+            <p class="ls-79"><i class="fas fa-exclamation-triangle"></i> Masalah Konvensional</p>
+            <p class="ls-80">Seluruh histori dikirim ulang ke setiap API call. Semakin panjang percakapan, semakin besar token yang dikonsumsi — diakui semua riset sebagai masalah utama sistem monolitik.</p>
+          </div>
+          <div class="ls-81">
+            <p class="ls-82"><i class="fas fa-check-circle"></i> Solusi S-P-O</p>
+            <p class="ls-80">Satu kalimat konteks ~10 token menggantikan ratusan token histori. Token yang diwariskan tetap flat berapapun panjang percakapan — pendekatan unik yang tidak ditemukan di riset pembanding.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ls-83">
+        <div class="ls-75">
+          <div class="ls-84">2</div>
+          <h4 class="ls-85">Masalah Informasi: Satu Agent Menyimpan Segalanya</h4>
+        </div>
+        <div class="l-two-column-grid">
+          <div class="ls-78">
+            <p class="ls-79"><i class="fas fa-exclamation-triangle"></i> Masalah Konvensional</p>
+            <p class="ls-80">Semua domain dalam satu prompt/RAG. Setiap panggilan membebani model dengan informasi yang tidak relevan — terbukti menurunkan akurasi di semua riset pembanding.</p>
+          </div>
+          <div class="ls-81">
+            <p class="ls-82"><i class="fas fa-check-circle"></i> Solusi Sub-Agent Spesialis</p>
+            <p class="ls-80">Setiap sub-agent hanya menyimpan informasi domain-nya. 100% informasi yang diterima agent relevan dengan pertanyaan — selaras dengan prinsip yang dibuktikan CommunityBots, Axetorn, dan ChatMap.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="l-conclusion-box">
+      <h3><i class="fas fa-check-circle"></i> Perubahan Paradigma, Bukan Sekadar Optimasi</h3>
+      <ul class="l-enhanced-list">
+        <li><strong>Akurasi sebagai Prioritas Utama:</strong> Routing yang tepat memastikan setiap pertanyaan dijawab oleh sub-agent yang memang ahli di domain tersebut — dikonfirmasi Axetorn 2026 sebagai faktor kepercayaan #1.</li>
+        <li><strong>Konteks Ringkas, Bukan Histori Panjang:</strong> Masalah klasik agent diselesaikan dengan konteks S-P-O. Memori menjadi efisien tanpa kehilangan kemampuan memahami percakapan multi-giliran.</li>
+        <li><strong>Informasi Tidak Mubazir Jadi Token:</strong> Setiap sub-agent hanya menerima data yang ia butuhkan — prinsip yang sama dibuktikan ChatMap (Alibaba) meningkatkan kepuasan pelanggan di Taobao.</li>
+        <li><strong>Output Deterministik:</strong> JSON berskema memungkinkan integrasi andal dengan n8n — keunggulan yang tidak dimiliki sistem CommunityBots atau ChatMap secara native.</li>
+        <li><strong>Skalabilitas Horizontal:</strong> Menambah domain baru = menambah satu sub-agent. Dikonfirmasi secara empiris oleh seluruh riset pembanding.</li>
+      </ul>
+      <div class="l-highlight-quote">
+        <p>"Sistem yang baik bukan yang mencoba menjawab segalanya, melainkan yang tahu persis kepada siapa harus bertanya — dan hanya membawa bekal yang memang dibutuhkan untuk perjalanan itu."</p>
+      </div>
+      <div class="l-two-column-grid ls-86">
+        <div class="ls-87">
+          <h4 class="ls-88"><i class="fas fa-tools"></i> Untuk Praktisi & Developer</h4>
+          <ul class="ls-89">
+            <li>Gunakan arsitektur ini untuk sistem dengan 3+ domain berbeda</li>
+            <li>Isi setiap sub-agent hanya dengan data domain-nya — jangan campur</li>
+            <li>Definisikan konteks S-P-O dengan entitas yang cukup spesifik</li>
+            <li>Buat test case per domain secara independen</li>
+          </ul>
+        </div>
+        <div class="ls-90">
+          <h4 class="ls-91"><i class="fas fa-lightbulb"></i> Didukung Riset Akademik</h4>
+          <ul class="ls-89">
+            <li>Axetorn 2026: reliabilitas via pemisahan peran agent</li>
+            <li>CommunityBots 2023: spesialisasi domain meningkatkan kualitas respons</li>
+            <li>ChatMap 2025: isolasi knowledge per-agent = performa produksi nyata</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metadata -->
+    <div class="ls-92">
+      <h3 class="ls-93"><i class="fas fa-file-alt"></i> Metadata Dokumen</h3>
+      <div class="ls-94">
+        <div><strong><i class="fas fa-tag"></i> Topik:</strong> Multi-Agent System Design</div>
+        <div><strong><i class="fas fa-calendar"></i> Tahun:</strong> 2026</div>
+        <div><strong><i class="fas fa-tools"></i> Platform:</strong> n8n Workflow Automation</div>
+        <div><strong><i class="fas fa-book"></i> Referensi:</strong> 3 Jurnal Peer-Reviewed</div>
+      </div>
+      <p class="ls-95">
+        <i class="fas fa-info-circle"></i>
+        Artikel ini disusun berdasarkan proyek eksperimen menggunakan platform n8n, diperkuat dengan perbandingan dari jurnal Requirements Engineering (2026), ACM CSCW (2023), dan ACL Findings (2025).
+      </p>
+    </div>
+  </div>
+</div></main><footer><img src="/images/logo-white.png" alt="Nuscode" width="209" height="45"><p>Kode dari Nusantara, untuk Dunia.</p><small>Teknologi yang membantu ide Anda tumbuh.</small></footer><script src="/artikel/rancang-bangun-agent-router-sub-agent-aset/artikel.js"></script></body></html>
