@@ -41,22 +41,34 @@
 
 <section id="solusi" aria-labelledby="h-solusi">
 <p class="lalin-kicker">3 · Solusi</p>
-<h2 id="h-solusi">Lampu lalu lintas yang membaca antrean</h2>
-<p class="lalin-intro">Lampu lalu lintas adaptif membagi waktu hijau sesuai antrean di setiap arah. Coba geser jumlah kendaraan, lalu bandingkan dengan lampu lalu lintas waktu tetap:</p>
+<h2 id="h-solusi">Mini Kota: kota biasa vs kota cerdas</h2>
+<p class="lalin-intro">Kami membangun <strong>Mini Kota</strong>, simulasi kota 3D yang berjalan di browser. Satu peta dijalankan dua kali dengan kendaraan yang sama persis: <strong>kota biasa</strong> memakai lampu lalu lintas waktu tetap, <strong>kota cerdas</strong> memakai lampu lalu lintas adaptif yang membaca kamera. Antrean, waktu tempuh, dan BBM terbuang keduanya lalu dibandingkan.</p>
+<p class="lalin-intro">Konsepnya bisa dicoba di sini: geser jumlah kendaraan dan lihat bedanya.</p>
 <div class="lalin-card lalin-stack">
 <div class="lalin-sliders">
 <label for="qa"><span>Utara–selatan: <b class="lalin-mono" id="qa-out">800</b> kendaraan/jam</span><input id="qa" type="range" min="100" max="1400" step="50" value="800"></label>
 <label for="qb"><span>Timur–barat: <b class="lalin-mono" id="qb-out">400</b> kendaraan/jam</span><input id="qb" type="range" min="100" max="1400" step="50" value="400"></label>
 </div>
 <div class="lalin-plans" id="plans"></div>
-<p class="lalin-note">Makin kecil tundaan, makin sedikit waktu dan BBM yang terbuang. Ilustrasi dengan rumus tundaan Webster.</p>
+<p class="lalin-note">Makin kecil tundaan, makin sedikit waktu dan BBM yang terbuang. Ilustrasi dengan rumus tundaan Webster; hasil lengkapnya ada di simulasi.</p>
 </div>
 </section>
 
 <section id="cara-kerja" aria-labelledby="h-cara">
 <p class="lalin-kicker">4 · Cara kerja</p>
-<h2 id="h-cara">Dari kamera ke lampu lalu lintas</h2>
-<p class="lalin-intro">Kamera di setiap arah menghitung kendaraan dan hanya mengirim angkanya, tanpa video dan tanpa melacak kendaraan. Klik setiap tahap untuk melihat perjalanan datanya:</p>
+<h2 id="h-cara">Bagaimana Mini Kota bekerja</h2>
+<p class="lalin-intro">Setiap bagian simulasi memakai metode yang lazim di rekayasa lalu lintas. Semuanya ditulis sendiri tanpa library tambahan, hanya three.js untuk tampilan 3D.</p>
+<div class="lalin-card lalin-scroll"><table>
+<thead><tr><th scope="col">Bagian</th><th scope="col">Metode / algoritma</th><th scope="col">Yang dilakukan</th></tr></thead>
+<tbody>
+<tr><td>Gerak kendaraan</td><td>Intelligent Driver Model (IDM)</td><td>Mengatur jarak, percepatan, dan pengereman tiap kendaraan; tiap pengemudi punya kecepatan pilihan sendiri dan bisa menyalip.</td></tr>
+<tr><td>Rute</td><td>Dijkstra pada graf lajur</td><td>Mencari jalur tercepat dari titik masuk ke tujuan.</td></tr>
+<tr><td>Kamera detektor antrean</td><td>Hitungan agregat per arah</td><td>Menghitung kendaraan di zona 80 m dan yang melewati garis henti; tidak ada video atau pelacakan.</td></tr>
+<tr><td>Lampu lalu lintas adaptif</td><td>Kendali teraktuasi (perpanjang dan putus hijau)</td><td>Memperpanjang hijau selama kendaraan masih datang, paling lama dua kali hijau rencana, dan memutusnya setelah 8 detik bila arahnya kosong sementara arah lain menunggu.</td></tr>
+<tr><td>Simpang berdekatan</td><td>Siklus bersama dan offset</td><td>Simpang yang terlalu dekat diatur sebagai satu kesatuan agar kendaraan tidak tertahan dua kali.</td></tr>
+<tr><td>Pembanding</td><td>Lampu lalu lintas waktu tetap</td><td>Kota biasa memakai durasi hijau yang sama sepanjang waktu.</td></tr>
+</tbody></table></div>
+<p class="lalin-intro lalin-after">Untuk kota sungguhan, data kamera mengalir lewat arsitektur big data. Klik setiap tahap:</p>
 <div class="lalin-pills" id="steps" role="group" aria-label="Tahap alur data"></div>
 <div class="lalin-card lalin-detail"><div class="lalin-detail-head"><p class="lalin-small" id="step-meta"></p><h3 id="step-name"></h3></div><p id="step-text"></p></div>
 </section>
@@ -64,16 +76,18 @@
 <section id="belajar" aria-labelledby="h-belajar">
 <p class="lalin-kicker">5 · Belajar dari data</p>
 <h2 id="h-belajar">Makin lama, makin pintar</h2>
-<p class="lalin-intro">Setiap 5 detik hitungan kamera disimpan sebagai histori, diberi label jam, tanggal Masehi, dan Hijriah, supaya pola harian sampai bulan Ramadan bisa dipelajari. Contoh barisnya:</p>
+<p class="lalin-intro">Kota cerdas mencatat hitungan kameranya setiap 5 detik sebagai histori di browser (IndexedDB). Setiap baris diberi label jam, tanggal Masehi, dan Hijriah, supaya pola harian sampai bulan Ramadan bisa dipelajari. Contoh barisnya:</p>
 <div class="lalin-pills" id="tables" role="group" aria-label="Jenis baris"></div>
 <div class="lalin-card lalin-scroll"><table id="table"></table></div>
-<p class="lalin-intro lalin-after">Dari histori itu, empat model dilatih dan langsung dipakai lampu lalu lintas. Targetnya satu: waktu antre sekecil mungkin.</p>
-<div class="lalin-models">
-<article class="lalin-card"><p class="lalin-small lalin-accent">Memprediksi · Gradient Boosted Trees</p><h3>Arus kendaraan per arah</h3></article>
-<article class="lalin-card"><p class="lalin-small lalin-accent">Memprediksi · Korelasi silang</p><h3>Waktu tempuh antar simpang</h3></article>
-<article class="lalin-card"><p class="lalin-small lalin-accent">Mengatur · Bayesian optimization</p><h3>Durasi hijau per fase</h3></article>
-<article class="lalin-card"><p class="lalin-small lalin-accent">Mengatur · Bayesian optimization</p><h3>Menahan hijau untuk rombongan</h3></article>
-</div>
+<p class="lalin-intro lalin-after">Dari histori itu, empat model dilatih di latar belakang (Web Worker) dan langsung dipakai lampu lalu lintas. Targetnya satu: waktu antre sekecil mungkin.</p>
+<div class="lalin-card lalin-scroll"><table>
+<thead><tr><th scope="col">Model</th><th scope="col">Algoritma</th><th scope="col">Cara kerjanya</th></tr></thead>
+<tbody>
+<tr><td>Prediksi arus per arah</td><td>Gradient Boosted Trees</td><td>Memperkirakan kendaraan 15 menit ke depan dari jam, tanggal, dan dua 15 menit sebelumnya.</td></tr>
+<tr><td>Prediksi waktu tempuh antar simpang</td><td>Korelasi silang</td><td>Mencari jeda waktu antara kendaraan yang keluar dari simpang hulu dan yang tiba di kamera simpang hilir.</td></tr>
+<tr><td>Durasi hijau per fase</td><td>Bayesian optimization (Gaussian process)</td><td>Setiap 15 menit memilih pengali hijau dengan perkiraan antre terkecil, sambil tetap mencoba setelan yang belum diketahui hasilnya.</td></tr>
+<tr><td>Menahan hijau untuk rombongan</td><td>Bayesian optimization (Gaussian process)</td><td>Menentukan berapa detik lampu lalu lintas hilir menahan hijau saat rombongan dari hulu diperkirakan tiba.</td></tr>
+</tbody></table></div>
 </section>
 
 <div class="lalin-banner"><p>Setiap detik idle yang dihindari adalah BBM yang tidak terbuang. Lihat kota biasa dan kota cerdas berdampingan.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
