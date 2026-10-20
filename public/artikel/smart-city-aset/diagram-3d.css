@@ -28,14 +28,6 @@
 .dg .label.dim{opacity:.4}
 .dg .zone-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#50695b;pointer-events:none}
 .dg .panel{border-left:1px solid #dce5da;background:#ffffff;overflow-y:auto;padding:18px 20px 28px;display:flex;flex-direction:column;gap:18px}
-.dg .primary{width:100%;background:#326149;color:#ffffff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-.dg .primary:hover{background:#264d39}
-.dg #tour-box{margin-top:12px;background:#eef3ec;border-radius:12px;padding:14px}
-.dg #tour-box h2{font-size:17px;margin:4px 0 6px}
-.dg #tour-box p{font-size:14px;line-height:1.65;color:#3c5a4b;margin:0 0 10px}
-.dg .tour-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.dg .tour-nav button{background:#ffffff;border:1px solid #dce5da;border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer;color:#25483b}
-.dg .tour-nav button:disabled{opacity:.4;cursor:default}
 .dg .eyebrow{font-size:11px!important;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#50695b!important;margin:0!important}
 .dg #device-info h2{font-size:19px;margin:2px 0 4px;display:flex;gap:8px;align-items:center}
 .dg #device-info h2 i{font-style:normal;color:#326149}
