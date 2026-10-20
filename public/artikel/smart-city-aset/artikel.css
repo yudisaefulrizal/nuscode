@@ -72,5 +72,5 @@
 .lalin-toc a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:50px;background:var(--card);border:1px solid #0000001a;color:var(--ink);font-weight:600;font-size:15px}
 .lalin-toc a:hover{border-color:var(--signal);color:var(--green)}
 .lalin-toc b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--signal);color:#fff;font-size:13px}
-.lalin-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:12px}
+.lalin-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:12px}
 .lalin-fact.wide{grid-column:1/-1}
