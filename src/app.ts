@@ -7,7 +7,7 @@ export function createApp(options: { file?: string; token?: string; whatsapp?: s
   const store = createStore(options.file);
   app.disable('x-powered-by');
   app.use((_req, res, next) => {
-    res.set({ 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'same-origin', 'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; frame-src https://smart-city.nuscode.id; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" }); next();
+    res.set({ 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'same-origin', 'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" }); next();
   });
   app.use(express.json({ limit: '128kb' }));
   app.get('/api/config', (_req, res) => res.json({ whatsapp: /^\d{8,15}$/.test(options.whatsapp || '') ? options.whatsapp : '' }));

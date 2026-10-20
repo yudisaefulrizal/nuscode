@@ -1,4 +1,4 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smart City: Lampu Lalu Lintas Adaptif — Nuscode</title><meta name="description" content="Simulasi kota cerdas berbasis big data analytics untuk optimasi lampu lalu lintas adaptif yang memanfaatkan data antrean kamera dan histori lalu lintas."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/artikel/smart-city-aset/artikel.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lalin">
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smart City: Lampu Lalu Lintas Adaptif — Nuscode</title><meta name="description" content="Simulasi kota cerdas berbasis big data analytics untuk optimasi lampu lalu lintas adaptif yang memanfaatkan data antrean kamera dan histori lalu lintas."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/artikel/smart-city-aset/artikel.css"><link rel="stylesheet" href="/artikel/smart-city-aset/diagram-3d.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lalin">
 
 <a class="lalin-back" href="/artikel">← Kembali ke Artikel</a>
 
@@ -62,8 +62,24 @@
 <tr><td>Skenario pembanding</td><td>Lampu lalu lintas waktu tetap</td><td>Menerapkan durasi hijau yang konstan pada kota konvensional.</td></tr>
 </tbody></table></div>
 <p class="lalin-intro lalin-after">Pada penerapan skala kota, data kamera diproses melalui arsitektur big data berikut. Diagram ini interaktif: geser untuk memutar, gulir untuk memperbesar, klik perangkat untuk melihat rinciannya, atau pilih <strong>Ikuti alur data</strong>.</p>
-<div class="lalin-embed"><iframe src="https://smart-city.nuscode.id/diagram-3d.html?embed" title="Diagram 3D alur data Mini Kota" loading="lazy" allow="fullscreen"></iframe></div>
-<p class="lalin-note">Sumber: diagram 3D perangkat Mini Kota. <a href="https://smart-city.nuscode.id/diagram-3d.html">Buka di halaman penuh</a>.</p>
+<div class="lalin-embed"><div class="dg">
+<div class="stage">
+<div id="scene" class="scene" aria-label="Diagram 3D perangkat. Gunakan daftar perangkat di panel untuk navigasi keyboard."></div>
+<p id="scene-fallback" class="fallback" hidden>WebGL tidak tersedia. Gunakan daftar perangkat di panel.</p>
+<div class="toolbar"><button type="button" id="toggle-flow" aria-pressed="false">Jeda aliran</button><button type="button" id="reset-view">Atur ulang kamera</button><button type="button" id="toggle-figures" aria-pressed="true">Angka</button><div class="color-mode" role="group" aria-label="Warna garis"><span>Warna:</span><button type="button" data-color="network" aria-pressed="true">Jaringan</button><button type="button" data-color="data" aria-pressed="false">Jenis data</button></div></div>
+<ul id="legend" class="legend" aria-label="Arti warna garis"></ul>
+<p id="figures-note" class="figures-note"></p>
+<p class="hint">Geser untuk memutar · gulir atau cubit untuk zoom · klik perangkat untuk detail</p>
+</div>
+<aside class="panel">
+<section class="tour"><button type="button" id="tour-start" class="primary">▶ Ikuti alur data</button>
+<div id="tour-box" hidden><p id="tour-step" class="eyebrow"></p><h2 id="tour-title"></h2><p id="tour-text"></p><div id="tour-devices" class="chips"></div><div class="tour-nav"><button type="button" id="tour-prev">← Sebelumnya</button><button type="button" id="tour-next">Berikutnya →</button><button type="button" id="tour-close">Tutup</button></div></div></section>
+<section id="device-info" aria-live="polite"></section>
+<details class="device-list"><summary>Daftar perangkat</summary><div id="device-buttons" class="chips"></div></details>
+<p class="note">Spesifikasi dan jumlah perangkat adalah usulan; angka pada diagram adalah contoh.</p>
+</aside>
+</div></div>
+<p class="lalin-note">Sumber: model 3D perangkat Mini Kota dengan angka contoh.</p>
 </section>
 
 <section id="belajar" aria-labelledby="h-belajar">
@@ -97,4 +113,4 @@
 </ol>
 </section>
 
-</div></main><footer><img src="/images/logo-white.png" alt="Nuscode" width="209" height="45"><p>Kode dari Nusantara, untuk Dunia.</p><small>Teknologi yang membantu ide Anda tumbuh.</small></footer><script type="module" src="/artikel/smart-city-aset/artikel.js"></script></body></html>
+</div></main><footer><img src="/images/logo-white.png" alt="Nuscode" width="209" height="45"><p>Kode dari Nusantara, untuk Dunia.</p><small>Teknologi yang membantu ide Anda tumbuh.</small></footer><script type="module" src="/artikel/smart-city-aset/artikel.js"></script><script src="/artikel/smart-city-aset/diagram-3d.js" defer></script></body></html>
