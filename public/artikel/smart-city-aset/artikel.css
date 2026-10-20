@@ -17,7 +17,7 @@
 .lalin-kicker{margin:0 0 2px;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green)}
 .lalin h2{margin:0 0 22px}
 .lalin h3{margin:0;font-size:20px;color:var(--ink)}
-.lalin-intro{margin:0 0 16px;font-size:17px;max-width:820px}
+.lalin-intro{margin:0 0 16px;font-size:17px;max-width:820px;text-align:justify;hyphens:auto}
 .lalin-after{margin-top:18px}
 .lalin-note{margin:10px 0 0;font-size:14px;color:var(--muted)}
 .lalin-points{display:flex;flex-direction:column;gap:16px}
