@@ -1,4 +1,4 @@
-// Bagian interaktif artikel: alur big data dan contoh baris histori.
+// Bagian interaktif artikel: contoh baris histori.
 const $=id=>document.getElementById(id);
 const el=(tag,attrs={},text)=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(text!=null)e.textContent=text;return e;};
 
@@ -9,18 +9,6 @@ function pills(box,items,label,onPick){
   function pick(i){buttons.forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)));onPick(items[i],i);}
   pick(0);
 }
-
-// ---- Alur big data.
-const STEPS=[
-  {img:'cam',name:'Kamera',speed:'per detik',text:'Menghitung kendaraan per arah dan hanya mengirimkan data agregat.'},
-  {img:'gw',name:'Gateway',speed:'per detik',text:'Meneruskan data ke pengendali simpang dan pusat data.'},
-  {img:'kafka',name:'Kafka',speed:'detik',text:'Menampung aliran data seluruh kota secara andal tanpa kehilangan data.'},
-  {img:'spark',name:'Spark',speed:'per menit',text:'Mengagregasi antrean dan arus kendaraan per menit.'},
-  {img:'db',name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'Menyimpan ringkasan untuk dasbor serta data histori untuk pelatihan model.'},
-  {img:'airflow',name:'Airflow',speed:'harian',text:'Menjadwalkan pelatihan ulang model dan mendistribusikan parameter baru ke lampu lalu lintas.'},
-  {img:'ctrl',name:'Pengendali simpang',speed:'per detik',text:'Menerapkan parameter baru dengan pengaman konflik sebagai lapisan proteksi terakhir.'},
-];
-pills($('steps'),STEPS,(s,i)=>`${i+1} · ${s.name}`,(s,i)=>{$('step-meta').textContent=`TAHAP ${i+1} · ${s.speed}`;$('step-name').textContent=s.name;$('step-text').textContent=s.text;const img=$('step-img');img.src=`/artikel/smart-city-aset/alur-${s.img}.jpg`;img.alt=`Diagram 3D: ${s.name}`;});
 
 // ---- Contoh baris histori.
 const LABEL='jam 6 · 20 Okt 2026 · 9 Jumadilawal 1448';
