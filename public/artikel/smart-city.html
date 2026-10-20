@@ -11,7 +11,7 @@
 </div>
 
 <nav class="lalin-toc" aria-label="Alur artikel">
-<a href="#masalah"><b>1</b> Latar belakang</a><a href="#bukti"><b>2</b> Kajian pustaka</a><a href="#solusi"><b>3</b> Solusi</a><a href="#cara-kerja"><b>4</b> Metodologi</a><a href="#belajar"><b>5</b> Pembelajaran data</a>
+<a href="#masalah"><b>1</b> Latar belakang</a><a href="#bukti"><b>2</b> Kajian pustaka</a><a href="#solusi"><b>3</b> Solusi</a><a href="#cara-kerja"><b>4</b> Metodologi</a>
 </nav>
 
 <section id="masalah" aria-labelledby="h-masalah">
@@ -61,7 +61,21 @@
 <tr><td>Simpang berdekatan</td><td>Siklus bersama dan offset</td><td>Mengoordinasikan simpang yang berjarak dekat sebagai satu kesatuan sehingga kendaraan tidak berhenti dua kali.</td></tr>
 <tr><td>Skenario pembanding</td><td>Lampu lalu lintas waktu tetap</td><td>Menerapkan durasi hijau yang konstan pada kota konvensional.</td></tr>
 </tbody></table></div>
-<p class="lalin-intro lalin-after">Pada penerapan skala kota, data kamera diproses melalui arsitektur big data berikut. Diagram ini interaktif: geser untuk memutar, gulir untuk memperbesar, klik perangkat untuk melihat rinciannya.</p>
+<h3 class="lalin-sub" id="h-belajar">Pembelajaran berbasis data histori</h3>
+<p class="lalin-intro lalin-after-h">Kota cerdas merekam data hitungan kamera setiap 5 detik sebagai data histori yang disimpan di peramban (IndexedDB). Setiap baris data diberi label jam, kalender Masehi, dan kalender Hijriah sehingga pola harian, mingguan, hingga musiman seperti bulan Ramadan dapat dipelajari. Contoh struktur datanya:</p>
+<div class="lalin-pills" id="tables" role="group" aria-label="Jenis baris"></div>
+<div class="lalin-card lalin-scroll"><table id="table"></table></div>
+<p class="lalin-intro lalin-after">Data histori tersebut digunakan untuk melatih empat model di latar belakang (Web Worker), yang hasilnya langsung diterapkan pada lampu lalu lintas. Fungsi tujuannya adalah meminimalkan total waktu antre.</p>
+<div class="lalin-card lalin-scroll"><table>
+<thead><tr><th scope="col">Model</th><th scope="col">Algoritma</th><th scope="col">Prinsip kerja</th></tr></thead>
+<tbody>
+<tr><td>Prediksi arus per arah</td><td>Gradient Boosted Trees</td><td>Memprediksi volume kendaraan 15 menit berikutnya berdasarkan fitur waktu, tanggal, dan volume dua periode sebelumnya.</td></tr>
+<tr><td>Prediksi waktu tempuh antar simpang</td><td>Korelasi silang</td><td>Mengestimasi waktu tempuh dari jeda dengan korelasi tertinggi antara keberangkatan di simpang hulu dan kedatangan di simpang hilir.</td></tr>
+<tr><td>Durasi hijau per fase</td><td>Bayesian optimization (Gaussian process)</td><td>Setiap 15 menit memilih faktor pengali durasi hijau dengan nilai lower confidence bound terkecil, sehingga menyeimbangkan eksploitasi dan eksplorasi.</td></tr>
+<tr><td>Penahanan hijau untuk peleton</td><td>Bayesian optimization (Gaussian process)</td><td>Menentukan durasi penahanan fase hijau di simpang hilir saat peleton kendaraan dari simpang hulu diperkirakan tiba.</td></tr>
+</tbody></table></div>
+<h3 class="lalin-sub">Arsitektur big data</h3>
+<p class="lalin-intro lalin-after-h">Pada penerapan skala kota, data kamera diproses melalui arsitektur big data berikut. Diagram ini interaktif: geser untuk memutar, gulir untuk memperbesar, klik perangkat untuk melihat rinciannya.</p>
 <div class="lalin-embed"><div class="dg">
 <div class="stage">
 <div id="scene" class="scene" aria-label="Diagram 3D perangkat. Gunakan daftar perangkat di panel untuk navigasi keyboard."></div>
@@ -78,23 +92,6 @@
 </aside>
 </div></div>
 <p class="lalin-note">Sumber: model 3D perangkat Mini Kota dengan angka contoh.</p>
-</section>
-
-<section id="belajar" aria-labelledby="h-belajar">
-<p class="lalin-kicker">5 · Pembelajaran data</p>
-<h2 id="h-belajar">Pembelajaran berbasis data histori</h2>
-<p class="lalin-intro">Kota cerdas merekam data hitungan kamera setiap 5 detik sebagai data histori yang disimpan di peramban (IndexedDB). Setiap baris data diberi label jam, kalender Masehi, dan kalender Hijriah sehingga pola harian, mingguan, hingga musiman seperti bulan Ramadan dapat dipelajari. Contoh struktur datanya:</p>
-<div class="lalin-pills" id="tables" role="group" aria-label="Jenis baris"></div>
-<div class="lalin-card lalin-scroll"><table id="table"></table></div>
-<p class="lalin-intro lalin-after">Data histori tersebut digunakan untuk melatih empat model di latar belakang (Web Worker), yang hasilnya langsung diterapkan pada lampu lalu lintas. Fungsi tujuannya adalah meminimalkan total waktu antre.</p>
-<div class="lalin-card lalin-scroll"><table>
-<thead><tr><th scope="col">Model</th><th scope="col">Algoritma</th><th scope="col">Prinsip kerja</th></tr></thead>
-<tbody>
-<tr><td>Prediksi arus per arah</td><td>Gradient Boosted Trees</td><td>Memprediksi volume kendaraan 15 menit berikutnya berdasarkan fitur waktu, tanggal, dan volume dua periode sebelumnya.</td></tr>
-<tr><td>Prediksi waktu tempuh antar simpang</td><td>Korelasi silang</td><td>Mengestimasi waktu tempuh dari jeda dengan korelasi tertinggi antara keberangkatan di simpang hulu dan kedatangan di simpang hilir.</td></tr>
-<tr><td>Durasi hijau per fase</td><td>Bayesian optimization (Gaussian process)</td><td>Setiap 15 menit memilih faktor pengali durasi hijau dengan nilai lower confidence bound terkecil, sehingga menyeimbangkan eksploitasi dan eksplorasi.</td></tr>
-<tr><td>Penahanan hijau untuk peleton</td><td>Bayesian optimization (Gaussian process)</td><td>Menentukan durasi penahanan fase hijau di simpang hilir saat peleton kendaraan dari simpang hulu diperkirakan tiba.</td></tr>
-</tbody></table></div>
 </section>
 
 <div class="lalin-banner"><p>Pengurangan waktu idle berbanding lurus dengan penghematan bahan bakar. Perbandingan kedua skenario dapat diamati langsung pada simulasi.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
