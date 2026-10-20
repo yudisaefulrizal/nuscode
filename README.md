@@ -1,59 +1,55 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Nuscode — Node.js
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website portofolio Nuscode mengikuti pola `nc-wa`: Node.js 22+, Express 5, TypeScript, serta script dev/build/start/check/test. Backend dan frontend satu server, tanpa PHP, Vite, atau database server.
 
-## About Laravel
+Fitur: beranda, portofolio aplikasi, halaman jasa pembuatan aplikasi, daftar/detail artikel, kontak WhatsApp, dan CRUD admin di `/admin`. Portofolio disimpan di `data/content.json` dengan penulisan atomik. Konten awal kosong. Seluruh runtime menggunakan Node.js; tidak membutuhkan PHP, Composer, Laravel, atau Filament.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Menjalankan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+npm install
+cp .env.example .env
+# Isi ADMIN_TOKEN (minimal 32 karakter) dan WHATSAPP_NUMBER di .env
+npm run dev
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Buka http://127.0.0.1:8070. Token acak bisa dibuat dengan `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Masukkan token tersebut di `.env` lalu di formulir `/admin`. Jangan bagikan token; gunakan HTTPS jika server diakses lewat jaringan publik. Token admin tidak disimpan oleh antarmuka.
 
-## Learning Laravel
+```bash
+npm run check
+npm test
+npm run build
+npm start
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Jalankan perintah dari root proyek. Build hanya mengompilasi server ke `dist/`; folder `public/` tetap diperlukan. `HOST` default `127.0.0.1`, `PORT` default `8070`. Gunakan reverse proxy untuk deployment publik.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Pengelolaan konten
 
-## Laravel Sponsors
+Buka `/admin`, isi formulir portofolio lalu Simpan. Pilih konten yang sudah ada untuk mengedit atau menghapus. Slug menjadi identitas permanen. URL demo hanya menerima HTTP/HTTPS.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+API publik: `GET /api/content`, `GET /api/config`. API admin membutuhkan `Authorization: Bearer <ADMIN_TOKEN>`: `POST /api/admin/aplikasi` dan `DELETE /api/admin/aplikasi/{slug}`. POST menambah atau memperbarui berdasarkan slug.
 
-### Premium Partners
+## Ruang lingkup dan data lama
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Kontak kolaborasi menggunakan WhatsApp. Midtrans, checkout, akun pembeli, unduhan berbayar, email transaksi, image processing, dan Filament tidak disertakan. Pembayaran dan unduhan lama belum dimigrasikan. Database versi sebelumnya tidak dibaca otomatis; pindahkan konten yang masih relevan melalui admin. Jangan menyalin `.env` Laravel ke proyek baru.
 
-## Contributing
+Backup `data/content.json`. Penyimpanan JSON ditujukan untuk satu proses Node; gunakan database sebelum menjalankan beberapa proses/replica. Server ini belum dilengkapi rate limiting admin. Tidak ada proyek atau artikel contoh yang dipublikasikan otomatis.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Artikel statis (manual)
 
-## Code of Conduct
+Artikel tidak menggunakan database, API konten, atau admin. Setiap artikel adalah file HTML terpisah.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Salin `docs/article-template.html` ke `public/artikel/judul-artikel.html`.
+2. Edit judul, meta description, dan isi HTML secara manual.
+3. Tambahkan kartu tautan pada `public/artikel/index.html`, misalnya:
 
-## Security Vulnerabilities
+```html
+<article class="card">
+  <h3>Judul Artikel</h3>
+  <p>Ringkasan singkat.</p>
+  <a href="/artikel/judul-artikel">Baca artikel →</a>
+</article>
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Letakkan kartu di dalam `.grid`, lalu hapus pesan “Belum ada artikel tersedia.” saat artikel pertama ditambahkan. Halaman tersedia di `/artikel/judul-artikel` tanpa perlu build ulang. Menu dan footer tiap artikel dapat diedit langsung di file HTML. Artikel lama dalam JSON tidak ditampilkan; jika ada, pindahkan isinya secara manual ke file HTML.

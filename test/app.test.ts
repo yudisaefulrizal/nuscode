@@ -1,0 +1,42 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { once } from 'node:events';
+import { createApp } from '../src/app.js';
+test('admin authorization, validation, CRUD and persistence', async () => {
+ const dir=mkdtempSync(join(tmpdir(),'nuscode-'));
+ const file=join(dir,'content.json'); const token='a'.repeat(40);
+ const server=createApp({file,token}).listen(0,'127.0.0.1');
+ await once(server,'listening');
+ const address=server.address(); assert(address && typeof address !== 'string');
+ const base=`http://127.0.0.1:${address.port}`;
+ const headers={'Content-Type':'application/json',Authorization:`Bearer ${token}`};
+ const entry={slug:'uji',title:'Uji',description:'Ringkas',content:'Isi',url:''};
+ try {
+  assert.equal((await fetch(base+'/')).status,200);
+  const articles = await fetch(base+'/artikel');
+  assert.equal(articles.status,200);
+  assert.match(await articles.text(), /<h1>Artikel<\/h1>/);
+  assert.equal((await fetch(base+'/artikel/tidak-ada')).status,404);
+  assert.equal((await fetch(base+'/api/admin/artikel',{method:'POST',headers,body:JSON.stringify(entry)})).status,404);
+  assert.equal('artikel' in await (await fetch(base+'/api/content')).json(),false);
+  assert.equal((await fetch(base+'/portofolio')).status,404);
+  assert.equal((await fetch(base+'/jasa-pembuatan-aplikasi')).status,200);
+  const legacyProducts = await fetch(base+'/produk',{redirect:'manual'});
+  assert.equal(legacyProducts.status,301);
+  assert.equal(legacyProducts.headers.get('location'),'/#karya');
+  assert.equal((await fetch(base+'/produk/prompt')).status,404);
+  assert.equal((await fetch(base+'/produk/prompt/contoh')).status,404);
+  assert.equal((await fetch(base+'/api/admin/prompt',{method:'POST',headers,body:JSON.stringify(entry)})).status,404);
+  assert.equal('prompt' in await (await fetch(base+'/api/content')).json(),false);
+  assert.equal((await fetch(base+'/api/admin/aplikasi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(entry)})).status,401);
+  assert.equal((await fetch(base+'/api/admin/aplikasi',{method:'POST',headers,body:JSON.stringify({...entry,url:'javascript:alert(1)'})})).status,422);
+  assert.equal((await fetch(base+'/api/admin/aplikasi',{method:'POST',headers,body:JSON.stringify(entry)})).status,200);
+  const content=await (await fetch(base+'/api/content')).json(); assert.equal(content.aplikasi[0].title,'Uji');
+  const {createStore}=await import('../src/store.js'); assert.equal(createStore(file).read().aplikasi.length,1);
+  assert.equal((await fetch(base+'/api/admin/aplikasi/uji',{method:'DELETE',headers})).status,204);
+  assert.equal((await (await fetch(base+'/api/content')).json()).aplikasi.length,0);
+ } finally { await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve())); rmSync(dir,{recursive:true}); }
+});
