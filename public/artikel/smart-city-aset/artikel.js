@@ -40,13 +40,13 @@ function pills(box,items,label,onPick){
 
 // ---- Alur big data.
 const STEPS=[
-  {name:'Kamera',speed:'per detik',text:'Kamera detektor antrean menghitung kendaraan per arah di perangkatnya sendiri dan hanya mengirim hitungan, bukan video.'},
-  {name:'Gateway',speed:'per detik',text:'Gateway di lapangan menerima hitungan dari semua perangkat dalam jangkauannya, meneruskannya ke pengendali simpang terdekat dan ke data center.'},
-  {name:'Kafka',speed:'detik',text:'Apache Kafka menampung aliran data dari seluruh kota, dibagi per wilayah, dan menyimpannya beberapa hari sehingga tidak ada data yang hilang saat pemrosesan tertinggal.'},
-  {name:'Spark',speed:'per menit',text:'Spark Structured Streaming merangkum data per menit: rata-rata dan maksimum antrean, arus per arah, serta kejadian seperti antrean macet.'},
-  {name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'ClickHouse menyimpan ringkasan untuk dashboard; data mentah diarsip di lakehouse (MinIO + Apache Iceberg) sebagai bahan pelatihan model.'},
-  {name:'Airflow',speed:'harian',text:'Apache Airflow menjadwalkan pelatihan ulang model dari histori setiap hari, lalu mengirim parameter baru ke gateway lewat jaringan kota.'},
-  {name:'Pengendali simpang',speed:'per detik',text:'Pengendali memakai parameter baru, tetap dengan pengaman konflik di kabinet sebagai lapisan terakhir.'},
+  {name:'Kamera',speed:'per detik',text:'Menghitung kendaraan per arah; hanya hitungan yang dikirim.'},
+  {name:'Gateway',speed:'per detik',text:'Meneruskan hitungan ke pengendali simpang dan data center.'},
+  {name:'Kafka',speed:'detik',text:'Menampung aliran data seluruh kota tanpa ada yang hilang.'},
+  {name:'Spark',speed:'per menit',text:'Merangkum antrean dan arus per menit.'},
+  {name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'Menyimpan ringkasan untuk dashboard dan histori untuk melatih model.'},
+  {name:'Airflow',speed:'harian',text:'Melatih ulang model tiap hari dan mengirim setelan baru ke lampu.'},
+  {name:'Pengendali simpang',speed:'per detik',text:'Memakai setelan baru, dengan pengaman konflik tetap jadi lapisan terakhir.'},
 ];
 pills($('steps'),STEPS,(s,i)=>`${i+1} · ${s.name}`,(s,i)=>{$('step-meta').textContent=`TAHAP ${i+1} · ${s.speed}`;$('step-name').textContent=s.name;$('step-text').textContent=s.text;});
 
