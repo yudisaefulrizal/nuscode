@@ -1,34 +1,6 @@
-// Bagian interaktif artikel: simpang dua arah (waktu tetap vs adaptif), alur big data, contoh baris histori.
+// Bagian interaktif artikel: alur big data dan contoh baris histori.
 const $=id=>document.getElementById(id);
 const el=(tag,attrs={},text)=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(text!=null)e.textContent=text;return e;};
-
-// ---- Satu simpang, dua cara mengatur. Rumus tundaan Webster (bagian seragam), 1 lajur per arah.
-const SAT=1800,LOST=8,MAX_GREEN=60;
-function plan(name,gA,gB,qA,qB,adaptive){
-  const c=gA+gB+LOST;
-  const delay=(g,q)=>{const lam=g/c,x=q/(lam*SAT);return x>=1?null:c*(1-lam)**2/(2*(1-lam*x));};
-  const dA=delay(gA,qA),dB=delay(gB,qB);
-  const d=dA===null||dB===null?'jenuh':`${Math.round((dA*qA+dB*qB)/(qA+qB))} dtk`;
-  const box=el('div',{class:adaptive?'lalin-plan adaptive':'lalin-plan'});
-  const head=el('div',{class:'lalin-plan-head'});head.append(el('h3',{},name),el('span',{},`siklus ${Math.round(c)} dtk`));
-  const bars=el('div');
-  for(const [label,g] of [['Hijau utara–selatan',gA],['Hijau timur–barat',gB]]){
-    const row=el('div',{class:'lalin-row'});row.append(el('span',{},label),el('span',{},`${Math.round(g)} dtk`));
-    const bar=el('div',{class:'lalin-bar'}),fill=el('i');fill.style.width=`${Math.round(g/MAX_GREEN*100)}%`;bar.append(fill);
-    bars.append(row,bar);
-  }
-  const res=el('div',{class:'lalin-result'});res.append(el('span',{},'Tundaan rata-rata per kendaraan'),el('b',{},d));
-  box.append(head,bars,res);return box;
-}
-function updatePlans(){
-  const qA=Number($('qa').value),qB=Number($('qb').value);
-  $('qa-out').textContent=qA;$('qb-out').textContent=qB;
-  const yA=qA/SAT,yB=qB/SAT,Y=Math.min(0.95,yA+yB);
-  const c0=Math.max(40,Math.min(128,(1.5*LOST+5)/(1-Y)));
-  const clamp=v=>Math.max(10,Math.min(MAX_GREEN,v));
-  $('plans').replaceChildren(plan('Waktu tetap',30,30,qA,qB,false),plan('Adaptif',clamp((c0-LOST)*yA/(yA+yB)),clamp((c0-LOST)*yB/(yA+yB)),qA,qB,true));
-}
-$('qa').addEventListener('input',updatePlans);$('qb').addEventListener('input',updatePlans);updatePlans();
 
 // ---- Pilihan berbentuk tombol (satu yang aktif).
 function pills(box,items,label,onPick){
