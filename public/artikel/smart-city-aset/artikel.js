@@ -40,13 +40,13 @@ function pills(box,items,label,onPick){
 
 // ---- Alur big data.
 const STEPS=[
-  {name:'Kamera',speed:'per detik',text:'Menghitung kendaraan per arah; hanya hitungan yang dikirim.'},
-  {name:'Gateway',speed:'per detik',text:'Meneruskan hitungan ke pengendali simpang dan data center.'},
-  {name:'Kafka',speed:'detik',text:'Menampung aliran data seluruh kota tanpa ada yang hilang.'},
-  {name:'Spark',speed:'per menit',text:'Merangkum antrean dan arus per menit.'},
-  {name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'Menyimpan ringkasan untuk dashboard dan histori untuk melatih model.'},
-  {name:'Airflow',speed:'harian',text:'Melatih ulang model tiap hari dan mengirim setelan baru ke lampu lalu lintas.'},
-  {name:'Pengendali simpang',speed:'per detik',text:'Memakai setelan baru, dengan pengaman konflik tetap jadi lapisan terakhir.'},
+  {name:'Kamera',speed:'per detik',text:'Menghitung kendaraan per arah dan hanya mengirimkan data agregat.'},
+  {name:'Gateway',speed:'per detik',text:'Meneruskan data ke pengendali simpang dan pusat data.'},
+  {name:'Kafka',speed:'detik',text:'Menampung aliran data seluruh kota secara andal tanpa kehilangan data.'},
+  {name:'Spark',speed:'per menit',text:'Mengagregasi antrean dan arus kendaraan per menit.'},
+  {name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'Menyimpan ringkasan untuk dasbor serta data histori untuk pelatihan model.'},
+  {name:'Airflow',speed:'harian',text:'Menjadwalkan pelatihan ulang model dan mendistribusikan parameter baru ke lampu lalu lintas.'},
+  {name:'Pengendali simpang',speed:'per detik',text:'Menerapkan parameter baru dengan pengaman konflik sebagai lapisan proteksi terakhir.'},
 ];
 pills($('steps'),STEPS,(s,i)=>`${i+1} · ${s.name}`,(s,i)=>{$('step-meta').textContent=`TAHAP ${i+1} · ${s.speed}`;$('step-name').textContent=s.name;$('step-text').textContent=s.text;});
 

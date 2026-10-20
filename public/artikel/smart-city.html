@@ -1,100 +1,100 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smart City: Lampu Lalu Lintas Adaptif — Nuscode</title><meta name="description" content="Lampu lalu lintas yang membaca antrean dari kamera dan belajar dari histori datanya, diuji dalam simulasi kota cerdas."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/artikel/smart-city-aset/artikel.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lalin">
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smart City: Lampu Lalu Lintas Adaptif — Nuscode</title><meta name="description" content="Simulasi kota cerdas berbasis big data analytics untuk optimasi lampu lalu lintas adaptif yang memanfaatkan data antrean kamera dan histori lalu lintas."><link rel="icon" type="image/png" href="/images/logo.png"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/artikel/smart-city-aset/artikel.css"></head><body><header><a class="brand" href="/"><img src="/images/logo.png" alt="Nuscode" width="209" height="45"></a><nav aria-label="Navigasi utama"><a href="/">Home</a><a href="/artikel" aria-current="page">Artikel</a></nav></header><main id="app"><div class="lalin">
 
 <a class="lalin-back" href="/artikel">← Kembali ke Artikel</a>
 
 <div class="lalin-hero">
 <div class="lalin-eyebrow" aria-hidden="true"><i class="lalin-lamp red"></i><i class="lalin-lamp amber"></i><i class="lalin-lamp green"></i><span>SMART CITY · MINI KOTA</span></div>
 <h1>Simulasi Kota Cerdas Berbasis Big Data Analytics untuk Optimasi Lampu Lalu Lintas Adaptif</h1>
-<p class="lalin-lead">Lampu merah yang tetap menyala di jalan kosong membuang BBM. Artikel ini menunjukkan bagaimana lampu lalu lintas yang membaca antrean bisa mencegahnya.</p>
+<p class="lalin-lead">Pengaturan lampu lalu lintas yang tidak menyesuaikan kondisi aktual menimbulkan waktu tunggu yang tidak perlu dan pemborosan bahan bakar. Artikel ini mengkaji pendekatan lampu lalu lintas adaptif berbasis data antrean melalui simulasi kota cerdas.</p>
 <p class="lalin-byline">Yudi Saeful Rizal · 20 Oktober 2026</p>
 <a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
 </div>
 
 <nav class="lalin-toc" aria-label="Alur artikel">
-<a href="#masalah"><b>1</b> Masalah</a><a href="#bukti"><b>2</b> Bukti</a><a href="#solusi"><b>3</b> Solusi</a><a href="#cara-kerja"><b>4</b> Cara kerja</a><a href="#belajar"><b>5</b> Belajar dari data</a>
+<a href="#masalah"><b>1</b> Latar belakang</a><a href="#bukti"><b>2</b> Kajian pustaka</a><a href="#solusi"><b>3</b> Solusi</a><a href="#cara-kerja"><b>4</b> Metodologi</a><a href="#belajar"><b>5</b> Pembelajaran data</a>
 </nav>
 
 <section id="masalah" aria-labelledby="h-masalah">
-<p class="lalin-kicker">1 · Masalah</p>
-<h2 id="h-masalah">Lampu merah, jalan kosong</h2>
-<p class="lalin-intro">Lampu lalu lintas waktu tetap memberi merah dengan durasi yang sama, ramai atau sepi. Akibatnya kendaraan berhenti dan mesinnya tetap menyala, padahal jalan di depan kosong.</p>
+<p class="lalin-kicker">1 · Latar belakang</p>
+<h2 id="h-masalah">Permasalahan lampu lalu lintas waktu tetap</h2>
+<p class="lalin-intro">Lampu lalu lintas waktu tetap menerapkan durasi sinyal yang sama tanpa memperhatikan volume kendaraan. Pada kondisi lalu lintas rendah, kendaraan tetap harus berhenti dengan mesin menyala meskipun ruas jalan di depannya kosong. Kondisi ini teramati langsung di lapangan:</p>
 <div class="lalin-photos">
-<figure><img src="/artikel/smart-city-aset/jalan-a1.jpg" alt="Lampu merah menyala di simpang, penyeberangan dan jalan di depannya kosong" loading="lazy" width="1220" height="1580"><figcaption>Lampu merah, jalan kosong.</figcaption></figure>
-<figure><img class="pos-low" src="/artikel/smart-city-aset/jalan-a.jpg" alt="Pengendara sepeda motor berhenti di garis henti saat lampu merah, jalan di depan lengang" loading="lazy" width="1220" height="2158"><figcaption>Menunggu dengan mesin menyala.</figcaption></figure>
-<figure><img class="pos-left" src="/artikel/smart-city-aset/jalan-b.jpg" alt="Malam hari, sepeda motor menunggu lampu merah di simpang yang sepi" loading="lazy" width="1220" height="910"><figcaption>Malam, simpang sepi, tetap menunggu.</figcaption></figure>
+<figure><img src="/artikel/smart-city-aset/jalan-a1.jpg" alt="Lampu merah menyala di simpang, penyeberangan dan jalan di depannya kosong" loading="lazy" width="1220" height="1580"><figcaption>Gambar 1. Sinyal merah saat ruas jalan kosong.</figcaption></figure>
+<figure><img class="pos-low" src="/artikel/smart-city-aset/jalan-a.jpg" alt="Pengendara sepeda motor berhenti di garis henti saat lampu merah, jalan di depan lengang" loading="lazy" width="1220" height="2158"><figcaption>Gambar 2. Kendaraan menunggu dengan mesin menyala.</figcaption></figure>
+<figure><img class="pos-left" src="/artikel/smart-city-aset/jalan-b.jpg" alt="Malam hari, sepeda motor menunggu lampu merah di simpang yang sepi" loading="lazy" width="1220" height="910"><figcaption>Gambar 3. Simpang bervolume rendah pada malam hari.</figcaption></figure>
 </div>
-<p class="lalin-note">Foto: dokumentasi penulis. Pelat nomor disamarkan.</p>
+<p class="lalin-note">Sumber: dokumentasi penulis. Pelat nomor kendaraan disamarkan.</p>
 </section>
 
 <section id="bukti" aria-labelledby="h-bukti">
-<p class="lalin-kicker">2 · Bukti</p>
+<p class="lalin-kicker">2 · Kajian pustaka</p>
 <h2 id="h-bukti">Berbagai penelitian tentang lampu lalu lintas</h2>
-<p class="lalin-intro">Penelitian menunjukkan lampu lalu lintas menyelamatkan nyawa, tapi lampu lalu lintas yang salah atur justru merugikan, baik dari sisi keselamatan maupun biaya.</p>
+<p class="lalin-intro">Penelitian terdahulu menunjukkan bahwa lampu lalu lintas meningkatkan keselamatan, namun pengaturan yang tidak sesuai kondisi justru menimbulkan dampak negatif terhadap keselamatan maupun biaya operasional.</p>
 <div class="lalin-facts">
-<div class="lalin-fact"><b>−39%</b><span>kecelakaan di simpang empat Kopenhagen setelah dipasang lampu lalu lintas. <em>Jensen (2010)</em></span></div>
-<div class="lalin-fact"><b>+38%</b><span>tabrakan belakang setelah lampu lalu lintas dipasang, meski tabrakan menyilang turun 67%. <em>McGee dkk. (2003)</em></span></div>
-<div class="lalin-fact"><b>−24%</b><span>kecelakaan saat lampu lalu lintas yang tidak perlu di Philadelphia diganti rambu STOP. <em>Persaud dkk. (1997)</em></span></div>
-<div class="lalin-fact"><b>Rp2–2,6 M</b><span>per tahun, estimasi BBM terbuang karena idle di satu simpang, Simpang Tugu Yogyakarta. <em>Jayapermana (2025)</em></span></div>
-<div class="lalin-fact wide"><b>−9,1%</b><span>BBM dan −24,6% tundaan setelah lampu lalu lintas di Texas diatur ulang. Pengaturan yang lebih baik terbukti menghemat. <em>FHWA (2008)</em></span></div>
+<div class="lalin-fact"><b>−39%</b><span>penurunan kecelakaan pada simpang empat lengan di Kopenhagen setelah pemasangan lampu lalu lintas. <em>Jensen (2010)</em></span></div>
+<div class="lalin-fact"><b>+38%</b><span>peningkatan tabrakan belakang setelah pemasangan lampu lalu lintas, meskipun tabrakan menyilang menurun 67%. <em>McGee dkk. (2003)</em></span></div>
+<div class="lalin-fact"><b>−24%</b><span>penurunan kecelakaan setelah lampu lalu lintas yang tidak memenuhi kriteria di Philadelphia diganti rambu STOP. <em>Persaud dkk. (1997)</em></span></div>
+<div class="lalin-fact"><b>Rp2–2,6 M</b><span>per tahun, estimasi biaya bahan bakar akibat kendaraan idle pada satu simpang (Simpang Tugu Yogyakarta). <em>Jayapermana (2025)</em></span></div>
+<div class="lalin-fact wide"><b>−9,1%</b><span>konsumsi bahan bakar dan −24,6% tundaan melalui program sinkronisasi lampu lalu lintas di Texas. <em>FHWA (2008)</em></span></div>
 </div>
 </section>
 
 <section id="solusi" aria-labelledby="h-solusi">
 <p class="lalin-kicker">3 · Solusi</p>
-<h2 id="h-solusi">Mini Kota: kota biasa vs kota cerdas</h2>
-<p class="lalin-intro">Kami membangun <strong>Mini Kota</strong>, simulasi kota 3D yang berjalan di browser. Satu peta dijalankan dua kali dengan kendaraan yang sama persis: <strong>kota biasa</strong> memakai lampu lalu lintas waktu tetap, <strong>kota cerdas</strong> memakai lampu lalu lintas adaptif yang membaca kamera. Antrean, waktu tempuh, dan BBM terbuang keduanya lalu dibandingkan.</p>
-<p class="lalin-intro">Konsepnya bisa dicoba di sini: geser jumlah kendaraan dan lihat bedanya.</p>
+<h2 id="h-solusi">Mini Kota: perbandingan kota konvensional dan kota cerdas</h2>
+<p class="lalin-intro">Penelitian ini mengembangkan <strong>Mini Kota</strong>, sebuah simulasi kota tiga dimensi berbasis web. Satu jaringan jalan dijalankan dalam dua skenario dengan pola kedatangan kendaraan yang identik: <strong>kota konvensional</strong> menggunakan lampu lalu lintas waktu tetap, sedangkan <strong>kota cerdas</strong> menggunakan lampu lalu lintas adaptif berbasis kamera detektor antrean. Kinerja kedua skenario dibandingkan berdasarkan waktu antre, waktu tempuh, dan estimasi bahan bakar yang terbuang.</p>
+<p class="lalin-intro">Ilustrasi prinsip tersebut pada satu simpang dua arah:</p>
 <div class="lalin-card lalin-stack">
 <div class="lalin-sliders">
 <label for="qa"><span>Utara–selatan: <b class="lalin-mono" id="qa-out">800</b> kendaraan/jam</span><input id="qa" type="range" min="100" max="1400" step="50" value="800"></label>
 <label for="qb"><span>Timur–barat: <b class="lalin-mono" id="qb-out">400</b> kendaraan/jam</span><input id="qb" type="range" min="100" max="1400" step="50" value="400"></label>
 </div>
 <div class="lalin-plans" id="plans"></div>
-<p class="lalin-note">Makin kecil tundaan, makin sedikit waktu dan BBM yang terbuang. Ilustrasi dengan rumus tundaan Webster; hasil lengkapnya ada di simulasi.</p>
+<p class="lalin-note">Tundaan dihitung dengan formula tundaan seragam Webster. Tundaan yang lebih kecil berarti waktu dan bahan bakar yang terbuang lebih sedikit.</p>
 </div>
 </section>
 
 <section id="cara-kerja" aria-labelledby="h-cara">
-<p class="lalin-kicker">4 · Cara kerja</p>
-<h2 id="h-cara">Bagaimana Mini Kota bekerja</h2>
-<p class="lalin-intro">Setiap bagian simulasi memakai metode yang lazim di rekayasa lalu lintas. Semuanya ditulis sendiri tanpa library tambahan, hanya three.js untuk tampilan 3D.</p>
+<p class="lalin-kicker">4 · Metodologi</p>
+<h2 id="h-cara">Metode dan algoritma simulasi</h2>
+<p class="lalin-intro">Setiap komponen simulasi menerapkan metode yang lazim digunakan dalam rekayasa lalu lintas. Seluruh komponen diimplementasikan tanpa pustaka tambahan, kecuali three.js untuk visualisasi tiga dimensi.</p>
 <div class="lalin-card lalin-scroll"><table>
-<thead><tr><th scope="col">Bagian</th><th scope="col">Metode / algoritma</th><th scope="col">Yang dilakukan</th></tr></thead>
+<thead><tr><th scope="col">Komponen</th><th scope="col">Metode / algoritma</th><th scope="col">Fungsi</th></tr></thead>
 <tbody>
-<tr><td>Gerak kendaraan</td><td>Intelligent Driver Model (IDM)</td><td>Mengatur jarak, percepatan, dan pengereman tiap kendaraan; tiap pengemudi punya kecepatan pilihan sendiri dan bisa menyalip.</td></tr>
-<tr><td>Rute</td><td>Dijkstra pada graf lajur</td><td>Mencari jalur tercepat dari titik masuk ke tujuan.</td></tr>
-<tr><td>Kamera detektor antrean</td><td>Hitungan agregat per arah</td><td>Menghitung kendaraan di zona 80 m dan yang melewati garis henti; tidak ada video atau pelacakan.</td></tr>
-<tr><td>Lampu lalu lintas adaptif</td><td>Kendali teraktuasi (perpanjang dan putus hijau)</td><td>Memperpanjang hijau selama kendaraan masih datang, paling lama dua kali hijau rencana, dan memutusnya setelah 8 detik bila arahnya kosong sementara arah lain menunggu.</td></tr>
-<tr><td>Simpang berdekatan</td><td>Siklus bersama dan offset</td><td>Simpang yang terlalu dekat diatur sebagai satu kesatuan agar kendaraan tidak tertahan dua kali.</td></tr>
-<tr><td>Pembanding</td><td>Lampu lalu lintas waktu tetap</td><td>Kota biasa memakai durasi hijau yang sama sepanjang waktu.</td></tr>
+<tr><td>Gerak kendaraan</td><td>Intelligent Driver Model (IDM)</td><td>Memodelkan jarak antarkendaraan, percepatan, dan perlambatan; setiap pengemudi memiliki kecepatan preferensi dan perilaku menyalip.</td></tr>
+<tr><td>Rute</td><td>Dijkstra pada graf lajur</td><td>Menentukan lintasan dengan waktu tempuh terpendek dari titik asal ke tujuan.</td></tr>
+<tr><td>Kamera detektor antrean</td><td>Hitungan agregat per arah</td><td>Menghitung kendaraan dalam zona deteksi 80 m dan yang melintasi garis henti, tanpa merekam video maupun melacak kendaraan individual.</td></tr>
+<tr><td>Lampu lalu lintas adaptif</td><td>Kendali teraktuasi (perpanjang dan putus hijau)</td><td>Memperpanjang fase hijau selama terdapat kedatangan kendaraan, maksimum dua kali durasi rencana, dan mengakhirinya setelah 8 detik tanpa kendaraan apabila terdapat permintaan pada arah lain.</td></tr>
+<tr><td>Simpang berdekatan</td><td>Siklus bersama dan offset</td><td>Mengoordinasikan simpang yang berjarak dekat sebagai satu kesatuan sehingga kendaraan tidak berhenti dua kali.</td></tr>
+<tr><td>Skenario pembanding</td><td>Lampu lalu lintas waktu tetap</td><td>Menerapkan durasi hijau yang konstan pada kota konvensional.</td></tr>
 </tbody></table></div>
-<p class="lalin-intro lalin-after">Untuk kota sungguhan, data kamera mengalir lewat arsitektur big data. Klik setiap tahap:</p>
+<p class="lalin-intro lalin-after">Pada penerapan skala kota, data kamera diproses melalui arsitektur big data berikut (pilih setiap tahap untuk melihat penjelasannya):</p>
 <div class="lalin-pills" id="steps" role="group" aria-label="Tahap alur data"></div>
 <div class="lalin-card lalin-detail"><div class="lalin-detail-head"><p class="lalin-small" id="step-meta"></p><h3 id="step-name"></h3></div><p id="step-text"></p></div>
 </section>
 
 <section id="belajar" aria-labelledby="h-belajar">
-<p class="lalin-kicker">5 · Belajar dari data</p>
-<h2 id="h-belajar">Makin lama, makin pintar</h2>
-<p class="lalin-intro">Kota cerdas mencatat hitungan kameranya setiap 5 detik sebagai histori di browser (IndexedDB). Setiap baris diberi label jam, tanggal Masehi, dan Hijriah, supaya pola harian sampai bulan Ramadan bisa dipelajari. Contoh barisnya:</p>
+<p class="lalin-kicker">5 · Pembelajaran data</p>
+<h2 id="h-belajar">Pembelajaran berbasis data histori</h2>
+<p class="lalin-intro">Kota cerdas merekam data hitungan kamera setiap 5 detik sebagai data histori yang disimpan di peramban (IndexedDB). Setiap baris data diberi label jam, kalender Masehi, dan kalender Hijriah sehingga pola harian, mingguan, hingga musiman seperti bulan Ramadan dapat dipelajari. Contoh struktur datanya:</p>
 <div class="lalin-pills" id="tables" role="group" aria-label="Jenis baris"></div>
 <div class="lalin-card lalin-scroll"><table id="table"></table></div>
-<p class="lalin-intro lalin-after">Dari histori itu, empat model dilatih di latar belakang (Web Worker) dan langsung dipakai lampu lalu lintas. Targetnya satu: waktu antre sekecil mungkin.</p>
+<p class="lalin-intro lalin-after">Data histori tersebut digunakan untuk melatih empat model di latar belakang (Web Worker), yang hasilnya langsung diterapkan pada lampu lalu lintas. Fungsi tujuannya adalah meminimalkan total waktu antre.</p>
 <div class="lalin-card lalin-scroll"><table>
-<thead><tr><th scope="col">Model</th><th scope="col">Algoritma</th><th scope="col">Cara kerjanya</th></tr></thead>
+<thead><tr><th scope="col">Model</th><th scope="col">Algoritma</th><th scope="col">Prinsip kerja</th></tr></thead>
 <tbody>
-<tr><td>Prediksi arus per arah</td><td>Gradient Boosted Trees</td><td>Memperkirakan kendaraan 15 menit ke depan dari jam, tanggal, dan dua 15 menit sebelumnya.</td></tr>
-<tr><td>Prediksi waktu tempuh antar simpang</td><td>Korelasi silang</td><td>Mencari jeda waktu antara kendaraan yang keluar dari simpang hulu dan yang tiba di kamera simpang hilir.</td></tr>
-<tr><td>Durasi hijau per fase</td><td>Bayesian optimization (Gaussian process)</td><td>Setiap 15 menit memilih pengali hijau dengan perkiraan antre terkecil, sambil tetap mencoba setelan yang belum diketahui hasilnya.</td></tr>
-<tr><td>Menahan hijau untuk rombongan</td><td>Bayesian optimization (Gaussian process)</td><td>Menentukan berapa detik lampu lalu lintas hilir menahan hijau saat rombongan dari hulu diperkirakan tiba.</td></tr>
+<tr><td>Prediksi arus per arah</td><td>Gradient Boosted Trees</td><td>Memprediksi volume kendaraan 15 menit berikutnya berdasarkan fitur waktu, tanggal, dan volume dua periode sebelumnya.</td></tr>
+<tr><td>Prediksi waktu tempuh antar simpang</td><td>Korelasi silang</td><td>Mengestimasi waktu tempuh dari jeda dengan korelasi tertinggi antara keberangkatan di simpang hulu dan kedatangan di simpang hilir.</td></tr>
+<tr><td>Durasi hijau per fase</td><td>Bayesian optimization (Gaussian process)</td><td>Setiap 15 menit memilih faktor pengali durasi hijau dengan nilai lower confidence bound terkecil, sehingga menyeimbangkan eksploitasi dan eksplorasi.</td></tr>
+<tr><td>Penahanan hijau untuk peleton</td><td>Bayesian optimization (Gaussian process)</td><td>Menentukan durasi penahanan fase hijau di simpang hilir saat peleton kendaraan dari simpang hulu diperkirakan tiba.</td></tr>
 </tbody></table></div>
 </section>
 
-<div class="lalin-banner"><p>Setiap detik idle yang dihindari adalah BBM yang tidak terbuang. Lihat kota biasa dan kota cerdas berdampingan.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
-<p class="lalin-note">Hasil ini berasal dari simulasi; penerapan nyata perlu kalibrasi dan uji coba di simpang sungguhan.</p>
+<div class="lalin-banner"><p>Pengurangan waktu idle berbanding lurus dengan penghematan bahan bakar. Perbandingan kedua skenario dapat diamati langsung pada simulasi.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
+<p class="lalin-note">Keterbatasan: hasil diperoleh dari simulasi, sehingga penerapan di lapangan memerlukan kalibrasi dengan data sensor aktual dan uji coba pada simpang nyata.</p>
 
 <section aria-labelledby="sumber" class="lalin-sources">
-<h2 id="sumber">Sumber</h2>
+<h2 id="sumber">Daftar pustaka</h2>
 <ol>
 <li>Jensen, S. U. (2010). <em>Safety Effects of Intersection Signalization: A Before-After Study.</em> TRB Annual Meeting.</li>
 <li>Persaud, B., Hauer, E., Retting, R., Vallurupalli, R., &amp; Mucsi, K. (1997). Crash reductions related to traffic signal removal in Philadelphia. <em>Accident Analysis and Prevention</em>, 29(6), 803–810. Ringkasan: <a href="https://cmfclearinghouse.fhwa.dot.gov/study_detail.php?stid=48">CMF Clearinghouse</a>.</li>
