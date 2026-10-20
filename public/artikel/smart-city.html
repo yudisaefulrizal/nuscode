@@ -5,29 +5,19 @@
 <div class="lalin-hero">
 <div class="lalin-eyebrow" aria-hidden="true"><i class="lalin-lamp red"></i><i class="lalin-lamp amber"></i><i class="lalin-lamp green"></i><span>SMART CITY · MINI KOTA</span></div>
 <h1>Simulasi Kota Cerdas Berbasis Big Data Analytics untuk Optimasi Lampu Lalu Lintas Adaptif</h1>
-<p class="lalin-lead">Lampu merah yang tetap menyala di jalan kosong membuang BBM. Lampu yang membaca antrean bisa mencegahnya.</p>
+<p class="lalin-lead">Lampu merah yang tetap menyala di jalan kosong membuang BBM. Artikel ini menunjukkan bagaimana lampu yang membaca antrean bisa mencegahnya.</p>
 <p class="lalin-byline">Yudi Saeful Rizal · 20 Oktober 2026</p>
 <a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
 </div>
 
-<section aria-labelledby="latar">
-<h2 id="latar">Latar belakang</h2>
-<div class="lalin-points">
-<article class="lalin-point"><div class="lalin-no">01</div><div class="lalin-body"><h3>Lampu menyelamatkan, tapi tidak di semua simpang</h3>
-<div class="lalin-fact"><b>−39%</b><span>kecelakaan di simpang empat Kopenhagen setelah dipasang lampu. <em>Jensen (2010)</em></span></div>
-<div class="lalin-fact"><b>−24%</b><span>kecelakaan setelah lampu di simpang jalan satu arah Philadelphia diganti rambu STOP. <em>Persaud dkk. (1997)</em></span></div></div></article>
-<article class="lalin-point"><div class="lalin-no">02</div><div class="lalin-body"><h3>Lampu yang tidak membaca kondisi menghentikan kendaraan tanpa perlu</h3>
-<div class="lalin-fact"><b>+38%</b><span>tabrakan belakang setelah lampu dipasang, meski tabrakan menyilang turun 67%. <em>McGee dkk. (2003)</em></span></div></div></article>
-<article class="lalin-point"><div class="lalin-no">03</div><div class="lalin-body"><h3>Kendaraan yang menunggu tetap membakar BBM</h3>
-<div class="lalin-fact"><b>Rp2,01–2,62 M</b><span>per tahun, estimasi biaya BBM kendaraan idle di satu simpang (Simpang Tugu Yogyakarta). <em>Jayapermana (2025)</em></span></div></div></article>
-<article class="lalin-point"><div class="lalin-no">04</div><div class="lalin-body"><h3>Pengaturan yang lebih baik terbukti menghemat</h3>
-<div class="lalin-fact"><b>−9,1%</b><span>BBM lewat sinkronisasi lampu di Texas (tundaan −24,6%). <em>FHWA (2008)</em></span></div></div></article>
-<article class="lalin-point dark"><div class="lalin-no">05</div><div class="lalin-body"><h3>Solusinya: lampu yang membaca antrean dan belajar dari histori</h3></div></article>
-</div>
-</section>
+<nav class="lalin-toc" aria-label="Alur artikel">
+<a href="#masalah"><b>1</b> Masalah</a><a href="#bukti"><b>2</b> Bukti</a><a href="#solusi"><b>3</b> Solusi</a><a href="#cara-kerja"><b>4</b> Cara kerja</a><a href="#belajar"><b>5</b> Belajar dari data</a>
+</nav>
 
-<section aria-labelledby="lapangan">
-<h2 id="lapangan">Kondisi di lapangan</h2>
+<section id="masalah" aria-labelledby="h-masalah">
+<p class="lalin-kicker">1 · Masalah</p>
+<h2 id="h-masalah">Lampu merah, jalan kosong</h2>
+<p class="lalin-intro">Lampu waktu tetap memberi merah dengan durasi yang sama, ramai atau sepi. Akibatnya kendaraan berhenti dan mesinnya tetap menyala, padahal jalan di depan kosong.</p>
 <div class="lalin-photos">
 <figure><img src="/artikel/smart-city-aset/jalan-a1.jpg" alt="Lampu merah menyala di simpang, penyeberangan dan jalan di depannya kosong" loading="lazy" width="1220" height="1580"><figcaption>Lampu merah, jalan kosong.</figcaption></figure>
 <figure><img class="pos-low" src="/artikel/smart-city-aset/jalan-a.jpg" alt="Pengendara sepeda motor berhenti di garis henti saat lampu merah, jalan di depan lengang" loading="lazy" width="1220" height="2158"><figcaption>Menunggu dengan mesin menyala.</figcaption></figure>
@@ -36,48 +26,58 @@
 <p class="lalin-note">Foto: dokumentasi penulis. Pelat nomor disamarkan.</p>
 </section>
 
-<section aria-labelledby="coba">
-<h2 id="coba">Coba: waktu tetap vs adaptif</h2>
+<section id="bukti" aria-labelledby="h-bukti">
+<p class="lalin-kicker">2 · Bukti</p>
+<h2 id="h-bukti">Lampu perlu, tapi pengaturannya menentukan</h2>
+<p class="lalin-intro">Penelitian menunjukkan lampu menyelamatkan nyawa, tapi lampu yang salah atur justru merugikan, baik dari sisi keselamatan maupun biaya.</p>
+<div class="lalin-facts">
+<div class="lalin-fact"><b>−39%</b><span>kecelakaan di simpang empat Kopenhagen setelah dipasang lampu. <em>Jensen (2010)</em></span></div>
+<div class="lalin-fact"><b>+38%</b><span>tabrakan belakang setelah lampu dipasang, meski tabrakan menyilang turun 67%. <em>McGee dkk. (2003)</em></span></div>
+<div class="lalin-fact"><b>−24%</b><span>kecelakaan saat lampu yang tidak perlu di Philadelphia diganti rambu STOP. <em>Persaud dkk. (1997)</em></span></div>
+<div class="lalin-fact"><b>Rp2–2,6 M</b><span>per tahun, estimasi BBM terbuang karena idle di satu simpang, Simpang Tugu Yogyakarta. <em>Jayapermana (2025)</em></span></div>
+<div class="lalin-fact wide"><b>−9,1%</b><span>BBM dan −24,6% tundaan setelah lampu di Texas diatur ulang. Pengaturan yang lebih baik terbukti menghemat. <em>FHWA (2008)</em></span></div>
+</div>
+</section>
+
+<section id="solusi" aria-labelledby="h-solusi">
+<p class="lalin-kicker">3 · Solusi</p>
+<h2 id="h-solusi">Lampu yang membaca antrean</h2>
+<p class="lalin-intro">Lampu adaptif membagi waktu hijau sesuai antrean di setiap arah. Coba geser jumlah kendaraan, lalu bandingkan dengan lampu waktu tetap:</p>
 <div class="lalin-card lalin-stack">
 <div class="lalin-sliders">
-<label for="qa">Utara–selatan: <b class="lalin-mono" id="qa-out">800</b> kendaraan/jam<input id="qa" type="range" min="100" max="1400" step="50" value="800"></label>
-<label for="qb">Timur–barat: <b class="lalin-mono" id="qb-out">400</b> kendaraan/jam<input id="qb" type="range" min="100" max="1400" step="50" value="400"></label>
+<label for="qa"><span>Utara–selatan: <b class="lalin-mono" id="qa-out">800</b> kendaraan/jam</span><input id="qa" type="range" min="100" max="1400" step="50" value="800"></label>
+<label for="qb"><span>Timur–barat: <b class="lalin-mono" id="qb-out">400</b> kendaraan/jam</span><input id="qb" type="range" min="100" max="1400" step="50" value="400"></label>
 </div>
 <div class="lalin-plans" id="plans"></div>
-<p class="lalin-note">Ilustrasi rumus tundaan Webster; bukan hasil simulasi Mini Kota.</p>
+<p class="lalin-note">Makin kecil tundaan, makin sedikit waktu dan BBM yang terbuang. Ilustrasi dengan rumus tundaan Webster.</p>
 </div>
 </section>
 
-<section aria-labelledby="alur">
-<h2 id="alur">Dari kamera ke lampu</h2>
-<p class="lalin-intro">Kamera hanya mengirim hitungan kendaraan, tanpa video dan tanpa melacak kendaraan. Klik setiap tahap:</p>
+<section id="cara-kerja" aria-labelledby="h-cara">
+<p class="lalin-kicker">4 · Cara kerja</p>
+<h2 id="h-cara">Dari kamera ke lampu</h2>
+<p class="lalin-intro">Kamera di setiap arah menghitung kendaraan dan hanya mengirim angkanya, tanpa video dan tanpa melacak kendaraan. Klik setiap tahap untuk melihat perjalanan datanya:</p>
 <div class="lalin-pills" id="steps" role="group" aria-label="Tahap alur data"></div>
-<div class="lalin-card lalin-detail"><div class="lalin-detail-head"><p class="lalin-mono lalin-small" id="step-meta"></p><h3 id="step-name"></h3></div><p id="step-text"></p></div>
+<div class="lalin-card lalin-detail"><div class="lalin-detail-head"><p class="lalin-small" id="step-meta"></p><h3 id="step-name"></h3></div><p id="step-text"></p></div>
 </section>
 
-<section aria-labelledby="histori">
-<h2 id="histori">Data histori</h2>
-<p class="lalin-intro">Satu data tiap 5 detik, berlabel jam, tanggal Masehi, dan Hijriah.</p>
+<section id="belajar" aria-labelledby="h-belajar">
+<p class="lalin-kicker">5 · Belajar dari data</p>
+<h2 id="h-belajar">Makin lama, makin pintar</h2>
+<p class="lalin-intro">Setiap 5 detik hitungan kamera disimpan sebagai histori, diberi label jam, tanggal Masehi, dan Hijriah, supaya pola harian sampai bulan Ramadan bisa dipelajari. Contoh barisnya:</p>
 <div class="lalin-pills" id="tables" role="group" aria-label="Jenis baris"></div>
 <div class="lalin-card lalin-scroll"><table id="table"></table></div>
-</section>
-
-<section aria-labelledby="belajar">
-<h2 id="belajar">Empat model</h2>
-<p class="lalin-intro">Dilatih dari histori, langsung dipakai. Target: waktu antre sekecil mungkin.</p>
+<p class="lalin-intro lalin-after">Dari histori itu, empat model dilatih dan langsung dipakai lampu. Targetnya satu: waktu antre sekecil mungkin.</p>
 <div class="lalin-models">
-<article class="lalin-card"><p class="lalin-mono lalin-small lalin-accent">PREDIKSI · Gradient Boosted Trees</p><h3>Arus per arah</h3></article>
-<article class="lalin-card"><p class="lalin-mono lalin-small lalin-accent">PREDIKSI · Korelasi silang</p><h3>Waktu tempuh antar simpang</h3></article>
-<article class="lalin-card"><p class="lalin-mono lalin-small lalin-accent">OPTIMASI · Bayesian optimization</p><h3>Durasi hijau per fase</h3></article>
-<article class="lalin-card"><p class="lalin-mono lalin-small lalin-accent">OPTIMASI · Bayesian optimization</p><h3>Penahanan hijau</h3></article>
+<article class="lalin-card"><p class="lalin-small lalin-accent">Memprediksi · Gradient Boosted Trees</p><h3>Arus kendaraan per arah</h3></article>
+<article class="lalin-card"><p class="lalin-small lalin-accent">Memprediksi · Korelasi silang</p><h3>Waktu tempuh antar simpang</h3></article>
+<article class="lalin-card"><p class="lalin-small lalin-accent">Mengatur · Bayesian optimization</p><h3>Durasi hijau per fase</h3></article>
+<article class="lalin-card"><p class="lalin-small lalin-accent">Mengatur · Bayesian optimization</p><h3>Menahan hijau untuk rombongan</h3></article>
 </div>
 </section>
 
-<section aria-labelledby="penutup">
-<h2 id="penutup">Penutup</h2>
-<p class="lalin-intro">Setiap detik idle yang dihindari adalah BBM yang tidak terbuang. Hasil ini dari simulasi; penerapan nyata perlu kalibrasi dan uji coba di simpang sungguhan.</p>
-<div class="lalin-banner"><p>Lihat kota biasa dan kota cerdas berdampingan.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
-</section>
+<div class="lalin-banner"><p>Setiap detik idle yang dihindari adalah BBM yang tidak terbuang. Lihat kota biasa dan kota cerdas berdampingan.</p><a class="lalin-cta" href="https://smart-city.nuscode.id/">Buka simulasi Mini Kota <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
+<p class="lalin-note">Hasil ini berasal dari simulasi; penerapan nyata perlu kalibrasi dan uji coba di simpang sungguhan.</p>
 
 <section aria-labelledby="sumber" class="lalin-sources">
 <h2 id="sumber">Sumber</h2>
