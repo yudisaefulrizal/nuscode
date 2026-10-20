@@ -45,7 +45,7 @@ const STEPS=[
   {name:'Kafka',speed:'detik',text:'Menampung aliran data seluruh kota tanpa ada yang hilang.'},
   {name:'Spark',speed:'per menit',text:'Merangkum antrean dan arus per menit.'},
   {name:'ClickHouse & Iceberg',speed:'menit–tahun',text:'Menyimpan ringkasan untuk dashboard dan histori untuk melatih model.'},
-  {name:'Airflow',speed:'harian',text:'Melatih ulang model tiap hari dan mengirim setelan baru ke lampu.'},
+  {name:'Airflow',speed:'harian',text:'Melatih ulang model tiap hari dan mengirim setelan baru ke lampu lalu lintas.'},
   {name:'Pengendali simpang',speed:'per detik',text:'Memakai setelan baru, dengan pengaman konflik tetap jadi lapisan terakhir.'},
 ];
 pills($('steps'),STEPS,(s,i)=>`${i+1} · ${s.name}`,(s,i)=>{$('step-meta').textContent=`TAHAP ${i+1} · ${s.speed}`;$('step-name').textContent=s.name;$('step-text').textContent=s.text;});
