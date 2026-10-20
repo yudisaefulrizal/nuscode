@@ -26,9 +26,9 @@
 .lalin-body{flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:8px}
 .lalin-body p{margin:0;font-size:17px}
 .lalin-point.dark{background:var(--grad);color:#fff}.lalin-point.dark .lalin-no{color:#7fd3a3}.lalin-point.dark h3{color:#fff}.lalin-point.dark p{color:#ffffffd9}
-.lalin-fact{margin:0;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;background:var(--fact);border-left:4px solid var(--amber);border-radius:12px;padding:14px 16px}
+.lalin-fact{margin:0;display:flex;flex-direction:column;gap:6px;background:var(--fact);border-left:4px solid var(--amber);border-radius:12px;padding:14px 16px}
 .lalin-fact b{font-size:22px;font-weight:700}
-.lalin-fact span{font-size:15px;color:var(--soft);flex:1 1 300px}
+.lalin-fact span{font-size:15px;color:var(--soft)}
 .lalin-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .lalin-photos figure{margin:0;background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px #0000000a}
 .lalin-photos img{display:block;width:100%;height:300px;object-fit:cover}
