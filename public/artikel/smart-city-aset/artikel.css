@@ -84,3 +84,4 @@
 .lalin-sub{margin:34px 0 10px!important}
 main.lebar{max-width:1400px}
 .lalin-list{margin:0 0 16px;padding-left:22px;max-width:none}.lalin-list li{margin:0 0 8px}
+.lalin-shot.kecil{float:right;width:min(38%,420px);margin:4px 0 12px 24px}.lalin-sub{clear:both}@media(max-width:720px){.lalin-shot.kecil{float:none;width:100%;margin:0 0 14px}}
